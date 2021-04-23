@@ -1,0 +1,49 @@
+package com.shopme.common.entity;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "taikhoan")
+public class TaiKhoan {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private String maTK;
+	
+	@Column(length = 128, nullable = false, unique = true)
+	private String email;
+	
+	@Column(length = 64, nullable = false)
+	private String matKhau;
+	
+	@Column(name = "ho", length = 45, nullable = false)
+	private String Ho;
+	
+	@Column(name = "ten", length = 45, nullable = false)
+	private String Ten;
+	
+	@Column(length = 64)
+	private String hinhAnh;
+	
+	private boolean trangThai;
+	
+	@ManyToMany
+	@JoinTable(
+			name = "vaitro_taikhoan",
+			joinColumns = @JoinColumn(name = "maTK"),
+			inverseJoinColumns = @JoinColumn(name = "maPK")
+			)
+	private Set<PhanQuyen> roles = new HashSet<>();
+	
+	
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0, minium-scale=1.0">
+	
+	<title>Tạo tài khoản mới </title>
+	
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+	<script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+</head>
+<body>
+<div class="container-fluid">
+	
+	
+	function checkEmailUnique(form) {
+		url = "[[@{/users/check_email}]]";
+		userEmail = $("#email").val();
+		csrfValue = $("input[name='_csrf']").val();
+		params = {email: userEmail, _csrf: csrfValue};
+		
+		$.post(url, params, function(response) {
+			if (response == "OK") {
+				form.submit();
+			}else if (response == "Duplicated") {
+				showModalDialog("Warning", "There is another use having the email: " + userEmail);
+			} else {
+				showModalDialog("Error", "Unknown response from server");
+			}
+		}).fail(function() {
+			showModalDialog("Error", "Could not connect to the server");
+		});
+		
+		return false;
+	}
+	
+	function showModalDialog(title, message) {
+		$("#modalTitle").text(title);
+		$("#modalBody").text(message);
+		$("#modalDialog").modal();
+		
+	}
+</script>
+</body>
+</html>

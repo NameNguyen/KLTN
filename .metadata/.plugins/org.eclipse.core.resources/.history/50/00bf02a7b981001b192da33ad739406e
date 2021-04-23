@@ -1,0 +1,47 @@
+package com.shopme.common.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "vaitro")
+public class VaiTro {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer maVaiTro;
+	
+	@Column(length = 40, nullable = false, unique = true)
+	private String ten;
+	
+	@Column(length = 150, nullable = false)
+	private String moTa;
+
+	public Integer getId() {
+		return maVaiTro;
+	}
+
+	public void setId(Integer id) {
+		this.maVaiTro = id;
+	}
+
+	public String getTen() {
+		return ten;
+	}
+
+	public void setTen(String ten) {
+		this.ten = ten;
+	}
+
+	public String getMoTa() {
+		return moTa;
+	}
+
+	public void setMoTa(String moTa) {
+		this.moTa = moTa;
+	}
+
+}
