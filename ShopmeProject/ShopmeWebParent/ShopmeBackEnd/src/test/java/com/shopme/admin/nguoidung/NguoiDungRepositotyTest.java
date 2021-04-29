@@ -15,7 +15,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.annotation.Rollback;
 
-import com.shopme.admin.nguoidung.NguoiDungRepository;
 import com.shopme.common.entity.PhanQuyen;
 import com.shopme.common.entity.TaiKhoan;
 
@@ -32,7 +31,7 @@ public class NguoiDungRepositotyTest {
 	@Test
 	public void testCreateNewUserWithOneRole() {
 		PhanQuyen roleAdmin = entityManager.find(PhanQuyen.class, 1);
-		TaiKhoan userTam = new TaiKhoan("nvtamnt99@gmail.com", "123123123", "Nguyễn Văn", "Tam");
+		TaiKhoan userTam = new TaiKhoan("nvtamnt1999@gmail.com", "123123123", "Nguyễn Văn", "Tam");
 		userTam.themPhanQuyen(roleAdmin);
 		
 		TaiKhoan savedUser = repo.save(userTam);

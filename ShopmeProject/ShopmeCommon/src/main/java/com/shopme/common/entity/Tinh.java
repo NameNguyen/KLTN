@@ -55,6 +55,11 @@ public class Tinh {
 	public void setDatNuoc(DatNuoc datNuoc) {
 		this.datNuoc = datNuoc;
 	}
+
+	@Override
+	public String toString() {
+		return "Tinh [maTinh=" + maTinh + ", ten=" + ten + ", datNuoc=" + datNuoc + "]";
+	}
 	
 	
 

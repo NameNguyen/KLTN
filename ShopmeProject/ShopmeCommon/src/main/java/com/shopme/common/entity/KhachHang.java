@@ -4,8 +4,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -22,7 +20,9 @@ public class KhachHang {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer maKhachHang;
 	
+	@Column(name = "email")
 	private String email;
+	
 	private String matKhau;
 	
 	@Column(name = "ho")
@@ -49,9 +49,6 @@ public class KhachHang {
 	@Column(name = "thoi_gian_tao", updatable = false)
 	private Date thoiGianTao;
 	
-	@Enumerated(EnumType.STRING)
-	@Column(name = "nha_CungcapXacthuc")
-	private Nhacungcapxacthuc nhaCCxacThuc;
 	
 	private boolean trangThai;
 	
@@ -60,7 +57,7 @@ public class KhachHang {
 	
 //	@Column(name = "ma_ThongbaoDatlaiMatkhau")
 //	private String resetPasswordToken;
-//	
+	
 	@ManyToOne
 	@JoinColumn(name = "ma_Datnuoc")
 	private DatNuoc datNuoc;
@@ -196,13 +193,7 @@ public class KhachHang {
 		return ho + " " + ten;
 	}
 
-	public Nhacungcapxacthuc getNhaCCxacThuc() {
-		return nhaCCxacThuc;
-	}
 
-	public void setNhaCCxacThuc(Nhacungcapxacthuc nhaCCxacThuc) {
-		this.nhaCCxacThuc = nhaCCxacThuc;
-	}
 
 	public String getMaXacnhan() {
 		return maXacnhan;
@@ -212,13 +203,6 @@ public class KhachHang {
 		this.maXacnhan = maXacnhan;
 	}
 
-//	public String getMaThongbaoDatlaiMatkhau() {
-//		return resetPasswordToken;
-//	}
-//
-//	public void setMaThongbaoDatlaiMatkhau(String maThongbaoDatlaiMatkhau) {
-//		this.resetPasswordToken = maThongbaoDatlaiMatkhau;
-//	}
 
 	public DatNuoc getDatNuoc() {
 		return datNuoc;
@@ -253,6 +237,14 @@ public class KhachHang {
 		diachi += ". Số điện thoại" + soDienThoai;
 		
 		return diachi;
+	}
+
+	@Override
+	public String toString() {
+		return "KhachHang [maKhachHang=" + maKhachHang + ", email=" + email + ", matKhau=" + matKhau + ", ho=" + ho
+				+ ", ten=" + ten + ", soDienThoai=" + soDienThoai + ", diaChi1=" + diaChi1 + ", diaChi2=" + diaChi2
+				+ ", thanhPho=" + thanhPho + ", tinh=" + tinh + ", maBuuDien=" + maBuuDien + ", thoiGianTao="
+				+ thoiGianTao + ", trangThai=" + trangThai + ", maXacnhan=" + maXacnhan + ", datNuoc=" + datNuoc + "]";
 	}
 	
 	

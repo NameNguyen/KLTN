@@ -2,13 +2,13 @@ package com.shopme.khachhang;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import com.shopme.common.entity.KhachHang;
 
+
 public interface KhachHangReponsitory extends CrudRepository<KhachHang, Integer>{
 
-	@Query("SELECT kh FROM khachhang kh where kh.email = ?1")
-	public KhachHang findByEmail(String email);
-	
-	
+	@Query(value = "SELECT * FROM khachhang c WHERE c.email = :email", nativeQuery = true)
+	public KhachHang getUserByEmail(@Param("email") String email);
 }

@@ -1,7 +1,18 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org">
+<head> 
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
+    <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+  	<link rel="stylesheet" th:href="@{/fontawesome/all.css}" />
+  	<link rel="stylesheet" th:href="@{/style.css}" />	
+  	<script type="text/javascript" th:src="@{/js/common.js}" ></script>
+</head>
 <body>
 <div th:fragment="header_menu">
+	<!-- <form th:action="@{/doLogout}" method="post" th:hidden="true" name="logoutForm">
+		<input type="submit" />
+	</form> -->
 	<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
 		<a class="navbar-brand" th:href="@{/}">
 			<img th:src="@{/images/shopmelogo.png}" />
@@ -21,17 +32,27 @@
 					<a class="nav-link" href="">Vận chuyển &amp; Giao hàng</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="">Đăng nhập</a>
+					<a class="nav-link" th:href="@{/dangnhap}">Đăng nhập</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="">Đăng ký</a>
+					<a class="nav-link" th:href="@{/dangky}">Đăng ký</a>
 				</li>
 				<li class="nav-item">
 					<a class="nav-link" href="">Liên hệ để được hỗ trợ</a>
-				</li>				
+				</li>
+				<li>
+					<span class="fas fa-user fa-2x icon-silver"></span>
+				</li>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" data-toggle="dropdown"
+						href=""
+						>Nguyen Truong Nam</a>
+					<div class="dropdown-menu">
+						<a class="dropdown-item" id="logoutLink" th:href="@{logout}">Đăng xuất</a>
+					</div>
+				</li>			
 			</ul>
 		</div>
-
 	</nav>
 </div>
 

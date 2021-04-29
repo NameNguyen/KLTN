@@ -2,7 +2,6 @@ package com.shopme.admin.danhmuc;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -14,7 +13,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.annotation.Rollback;
 
-import com.shopme.admin.danhmuc.DanhMucRepository;
 import com.shopme.common.entity.DanhMuc;
 
 @DataJpaTest(showSql = false)

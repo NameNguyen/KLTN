@@ -2,6 +2,7 @@ package com.shopme.common.entity;
 
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,12 +19,13 @@ public class DatNuoc {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer maDatnuoc;
 	
-	@NotBlank
+	@Column(length = 45, nullable = false, unique = true)
 	private String ten;
 	
+	@Column(name = "ma_Vung")
 	private String maVung;
 	
-	@OneToMany(mappedBy = "datnuoc")
+	@OneToMany(mappedBy = "datNuoc")
 	private Set<Tinh> dsTinh;
 
 	public DatNuoc() {
@@ -96,10 +98,11 @@ public class DatNuoc {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return ten;
+	}
 	
 
 }
