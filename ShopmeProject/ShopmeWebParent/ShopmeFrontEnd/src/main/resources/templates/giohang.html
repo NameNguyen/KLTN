@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments :: page_head('Shopme', 'none')" />
+<body>
+	<div class="container-fluid">
+		<div th:replace="navigation :: header_menu"></div>
+		<div th:replace="navigation :: search_nav"></div>
+		<div class="text-center">
+			<h2>Giỏ hàng của bạn</h2>
+			<br/>
+		</div>
+
+		<div class="row m-1">
+			<div class="col-sm-8">
+				<th:block th:each="items, status : ${dsGioHang}">
+					<div class="row border rounded" th:with="sp = ${items.sanpham}" 
+					th:id="'row' + ${status.count}">
+						<div class="col-1">
+							<div class="div-count">[[${status.count}]]</div>
+							<div>
+								<a 
+								class="fas fa-trash icon-dark link-remove" 
+								th:rowNumber = "${status.count}"
+								th:href="@{'/cart/remove/' + ${sp.maSanPham}}">
+								Xóa
+							</a>
+							</div>
+						</div>
+						<div class="col-3">
+							<img th:src ="@{${sp.duongDanHinhAnhChinh}}" class="img-fluid" />
+						</div>
+						<div class="col-6">
+							<div>
+								<a th:title ="${sp.ten}" th:href="@{${sp.URI}}" target="_blank">
+									<b>[[${sp.ten}]]</b>
+								</a>
+							</div>
+							<div th:replace="quantity_control :: quantity_control(${items.soLuong}, ${items.sanpham.maSanPham})">Số lượng</div>
+							<div>
+								<span>X</span>
+								<span>$[[${sp.giaBan}]]</span>
+							</div>
+							<div>
+								<span>=&nbsp;</span><span class="h4">$</span>
+								<span th:id="'subtotal' + ${sp.maSanPham}" class="h4 productSubtotal">[[${items.tongTien}]]</span>
+							</div>
+						</div>
+					</div>
+					<div class="row m-1">&nbsp;</div>
+				</th:block>
+			</div>
+			<div class="col-sm-4" th:unless="${#lists.isEmpty(dsGioHang)}">
+				<div>
+					<span class="h3">Ước tính Tổng</span>
+				</div>
+				<div class="mt-2">
+					<span class="h2" id="total"></span>
+				</div>
+				<div class="mt-2">
+					<button class="btn btn-danger p-3 mt-2">Thanh Toán</button>
+				</div>
+			</div>
+		</div>
+		<div th:if="${#lists.isEmpty(dsGioHang)}">
+			<h3>Bạn vẫn chưa chọn được sản phẩm nào</h3>
+		</div>
+		<div th:replace="navigation :: standard_modal"></div>
+		<div th:replace="navigation :: footer_menu"></div>
+	</div>
+<script type="text/javascript">
+	contextPath = "[[@{/}]]";
+	var crsfHeaderName = "[[${_csrf.headerName}]]";
+	var csrfValue = "[[${_csrf.token}]]";
+</script>
+<script th:src="@{/js/shopping_cart.js}"></script>
+</body>
+</html>

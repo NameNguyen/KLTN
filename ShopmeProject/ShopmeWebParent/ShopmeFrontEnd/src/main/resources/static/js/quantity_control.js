@@ -1,6 +1,6 @@
 $(document).ready(function() {	
 	
-	$(".linkMinus").on("click", function(evt) {
+	$(".minusButton").on("click", function(evt) {
 		evt.preventDefault();
 		productId = $(this).attr("pid");
 		qtyInput = $("#quantity" + productId);
@@ -8,7 +8,7 @@ $(document).ready(function() {
 		if (newQty > 0) qtyInput.val(newQty);
 	});
 	
-	$(".linkPlus").on("click", function(evt) {
+	$(".plusButton").on("click", function(evt) {
 		evt.preventDefault();
 		productId = $(this).attr("pid");
 		qtyInput = $("#quantity" + productId);		

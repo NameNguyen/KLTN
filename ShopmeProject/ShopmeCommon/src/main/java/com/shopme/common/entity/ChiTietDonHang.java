@@ -35,4 +35,69 @@ public class ChiTietDonHang {
 	@ManyToOne
 	@JoinColumn(name = "sanpham_id")
 	private SanPham sanpham;
+
+	public Integer getMaChiTietDonHang() {
+		return maChiTietDonHang;
+	}
+
+	public void setMaChiTietDonHang(Integer maChiTietDonHang) {
+		this.maChiTietDonHang = maChiTietDonHang;
+	}
+
+	public int getSoLuong() {
+		return soLuong;
+	}
+
+	public void setSoLuong(int soLuong) {
+		this.soLuong = soLuong;
+	}
+
+	public float getChiPhi() {
+		return chiPhi;
+	}
+
+	public void setChiPhi(float chiPhi) {
+		this.chiPhi = chiPhi;
+	}
+
+	public float getShip() {
+		return ship;
+	}
+
+	public void setShip(float ship) {
+		this.ship = ship;
+	}
+
+	public float getDonGia() {
+		return donGia;
+	}
+
+	public void setDonGia(float donGia) {
+		this.donGia = donGia;
+	}
+
+	public float getTongphu() {
+		return tongphu;
+	}
+
+	public void setTongphu(float tongphu) {
+		this.tongphu = tongphu;
+	}
+
+	public DonHang getDonhang() {
+		return donhang;
+	}
+
+	public void setDonhang(DonHang donhang) {
+		this.donhang = donhang;
+	}
+
+	public SanPham getSanpham() {
+		return sanpham;
+	}
+
+	public void setSanpham(SanPham sanpham) {
+		this.sanpham = sanpham;
+	}
+	
 }

@@ -15,12 +15,12 @@ function addToCart() {
 			xhr.setRequestHeader(crsfHeaderName, csrfValue);
 		}
 	}).done(function(response) {
-		$("#modalTitle").text("Shopping Cart");	
+		$("#modalTitle").text("Giỏ hàng");	
 		$("#modalBody").text(response);
 		$('#myModal').modal();
 	}).fail(function() {
-		$("#modalTitle").text("Shopping Cart");
-		$("#modalBody").text("Error while adding product to shopping cart.");
+		$("#modalTitle").text("Giỏ hàng");
+		$("#modalBody").text("Lỗi khi thêm sản phẩm vào giỏ hàng.");
 		$('#myModal').modal();
 	});		
 }

@@ -4,12 +4,12 @@ $(document).ready(function() {
 		removeFromCart($(this));
 	});	
 	
-	$(".linkMinus").on("click", function(evt) {
+	$(".minusButton").on("click", function(evt) {
 		evt.preventDefault();
 		increaseQuantity($(this));
 	});
 	
-	$(".linkPlus").on("click", function(evt) {
+	$(".plusButton").on("click", function(evt) {
 		evt.preventDefault();
 		decreaseQuantity($(this));
 	});	
@@ -27,12 +27,12 @@ function removeFromCart(link) {
 			xhr.setRequestHeader(crsfHeaderName, csrfValue);
 		}
 	}).done(function(response) {
-		$("#modalTitle").text("Shopping Cart");
+		$("#modalTitle").text("Giỏ Hàng");
 		if (response.includes("removed")) {
 			$("#myModal").on("hide.bs.modal", function(e) {
 				rowNumber = link.attr('rowNumber');
 				removeProduct(rowNumber);
-				updateCountNumbers();
+				updateCountNumbers(); 
 				updateTotal();
 			});			
 		}
@@ -40,8 +40,8 @@ function removeFromCart(link) {
 		$("#modalBody").text(response);
 		$('#myModal').modal();
 	}).fail(function() {
-		$("#modalTitle").text("Shopping Cart");
-		$("#modalBody").text("Error while removing product from shopping cart.");
+		$("#modalTitle").text("Giỏ hàng");
+		$("#modalBody").text("Lỗi khi xóa sản phẩm khỏi giỏ hàng.");
 		$('#myModal').modal();
 	});	
 }
@@ -90,33 +90,36 @@ function updateQuantity(productId, quantity) {
 		updateSubtotal(newSubtotal, productId);
 		updateTotal();
 	}).fail(function() {
-		$("#modalTitle").text("Shopping Cart");
-		$("#modalBody").text("Error while updating quantity.");
+		$("#modalTitle").text("Giỏ Hàng");
+		$("#modalBody").text("Lỗi Không thể chỉnh sửa số lượng");
 		$('#myModal').modal();
 	});	
 }
 
-function updateSubtotal(newSubtotal, productId) {
-	formattedSubtotal = $.number(newSubtotal, 2);
+function updateSubtotal(newSubtotal	, productId) {
+	// formattedSubtotal = $.number(newSubtotal, 2);
 	
-	$("#subtotal" + productId).text(formattedSubtotal);
+	$("#subtotal" + productId).text(newSubtotal);
 }
 
 function updateTotal() {
 	total = 0.0;
-	$(".productsubtotal").each(function(index, element) {
+
+	$(".productSubtotal").each(function(index, element) {
 		total = total + parseFloat(element.innerHTML);
+		
 	});
-	
-	if (total == 0.0) {
-		hideSectionTotal();
-	} else {
-		formattedTotal = $.number(total, 2);
-		$("#total").text(formattedTotal);
-	}
+
+	$("#total").text("$" + total);
+	// if (total == 0.0) {
+	// 	hideSectionTotal();
+	// } else {
+	// 	formattedTotal = $.number(total, 2);
+	// 	$("#total").text("$" +formattedTotal);
+	// }
 }
 
-function hideSectionTotal() {
-	$("#sectionTotal").hide();
-	$("#sectionEmptyCart").removeClass("d-none");
-}
+// function hideSectionTotal() {
+// 	$("#sectionTotal").hide();
+// 	$("#sectionEmptyCart").removeClass("d-none");
+// }

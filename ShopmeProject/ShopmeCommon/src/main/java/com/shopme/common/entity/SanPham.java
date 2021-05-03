@@ -302,4 +302,9 @@ public class SanPham {
 		return this.giaBan;
 	}
 	
+	@Transient
+	public String getURI() {
+		return "/p/" + this.biDanh + "/";
+	}
+	
 }

@@ -35,8 +35,8 @@ public class KhachHangReponsitoryTest {
 	
 	@Test
 	public void testGetUserByEmail() {
-		String email = "nguyentruongnam@gmail.com";
-		KhachHang khachHang = khachhangReponsitory.getUserByEmail(email);
+		String email = "nguyentruongnam69@gmail.com";
+		KhachHang khachHang = khachhangReponsitory.getKhachhangByEmail(email);
 		assertThat(khachHang).isNotNull();
 	}
 	

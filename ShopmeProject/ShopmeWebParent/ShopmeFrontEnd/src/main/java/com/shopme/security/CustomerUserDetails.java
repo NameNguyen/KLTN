@@ -60,15 +60,15 @@ public class CustomerUserDetails implements UserDetails{
 		return khachHang.isTrangThai();
 	}
 
-	public String getFullName() {
+	public String getHoTen() {
 		return khachHang.getHo() + " " + khachHang.getTen(); 
 	}
 
-	public void setFirstName(String ho) {
+	public void setHo(String ho) {
 		this.khachHang.setHo(ho);
 	}
 	
-	public void setLastName(String ten) {
+	public void setTen(String ten) {
 		this.khachHang.setTen(ten);;
 	}	
 	

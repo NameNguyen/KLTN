@@ -10,5 +10,5 @@ import com.shopme.common.entity.KhachHang;
 public interface KhachHangReponsitory extends CrudRepository<KhachHang, Integer>{
 
 	@Query(value = "SELECT * FROM khachhang c WHERE c.email = :email", nativeQuery = true)
-	public KhachHang getUserByEmail(@Param("email") String email);
+	public KhachHang getKhachhangByEmail(@Param("email") String email);
 }

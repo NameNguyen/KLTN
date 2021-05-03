@@ -69,8 +69,17 @@ public class MatHangGioHang {
 	public void setShip(float ship) {
 		this.ship = ship;
 	}
+
+	@Override
+	public String toString() {
+		return "MatHangGioHang [maMHGH=" + maMHGH + ", khachhang=" + khachhang + ", sanpham=" + sanpham + ", soLuong="
+				+ soLuong + ", ship=" + ship + "]";
+	}
 	
 	
-	
+	@Transient
+	public float getTongTien() {
+		return this.sanpham.getGiaBan()*soLuong;
+	}
 	
 }

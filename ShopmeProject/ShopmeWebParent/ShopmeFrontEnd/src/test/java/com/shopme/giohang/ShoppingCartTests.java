@@ -1,6 +1,9 @@
 package com.shopme.giohang;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,18 +27,31 @@ public class ShoppingCartTests {
 	@Autowired private TestEntityManager entityManager;
 	
 	@Test
-	public void l() {
-		SanPham sanPham = entityManager.find(SanPham.class, 20);
+	public void testAddoneCartItem() {
+		SanPham sanPham = entityManager.find(SanPham.class, 3);
 		KhachHang khachHang = entityManager.find(KhachHang.class, 1);
 		
 		
 		MatHangGioHang newItem = new MatHangGioHang();
 		newItem.setKhachhang(khachHang);
 		newItem.setSanpham(sanPham);
-		newItem.setSoLuong(1);
+		newItem.setSoLuong(10);
 		
 		MatHangGioHang saveItem = cartRepo.save(newItem);
 		
 		assertThat(saveItem.getMaMHGH()).isGreaterThan(0);
 	}
+	
+	@Test
+	public void testGetCartItemsByCustomer() {
+		KhachHang khachHang = new KhachHang();
+		khachHang.setMaKhachHang(1);
+		
+		List<MatHangGioHang> cartItem = cartRepo.findByKhachhang(khachHang);
+		
+		assertEquals(1, cartItem.size());
+	}
+	
+	
+	
 }
