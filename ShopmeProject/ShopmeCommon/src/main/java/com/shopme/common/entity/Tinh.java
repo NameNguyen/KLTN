@@ -1,5 +1,6 @@
 package com.shopme.common.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,7 +17,7 @@ public class Tinh {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer maTinh;
 	
-	
+	@Column(nullable = false, length = 45)
 	private String ten;
 	
 	@ManyToOne
@@ -32,12 +33,13 @@ public class Tinh {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Integer getMa() {
+
+	public Integer getMaTinh() {
 		return maTinh;
 	}
 
-	public void setMa(Integer ma) {
-		this.maTinh = ma;
+	public void setMaTinh(Integer maTinh) {
+		this.maTinh = maTinh;
 	}
 
 	public String getTen() {
@@ -58,8 +60,9 @@ public class Tinh {
 
 	@Override
 	public String toString() {
-		return "Tinh [maTinh=" + maTinh + ", ten=" + ten + ", datNuoc=" + datNuoc + "]";
+		return "Tinh [maTinh=" + maTinh + ", ten=" + ten + "]";
 	}
+
 	
 	
 

@@ -9,7 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "datnuoc")
@@ -50,12 +49,12 @@ public class DatNuoc {
 		this.ten = ten;
 	}
 
-	public Integer getMa() {
+	public Integer getMaDatnuoc() {
 		return maDatnuoc;
 	}
 
-	public void setMa(Integer ma) {
-		this.maDatnuoc = ma;
+	public void setMaDatnuoc(Integer maDatnuoc) {
+		this.maDatnuoc = maDatnuoc;
 	}
 
 	public String getTen() {
@@ -66,12 +65,12 @@ public class DatNuoc {
 		this.ten = ten;
 	}
 
-	public String getMaSo() {
+	public String getMaVung() {
 		return maVung;
 	}
 
-	public void setMaSo(String maSo) {
-		this.maVung = maSo;
+	public void setMaVung(String maVung) {
+		this.maVung = maVung;
 	}
 
 	@Override
@@ -101,8 +100,13 @@ public class DatNuoc {
 
 	@Override
 	public String toString() {
-		return ten;
+		return "DatNuoc [maDatnuoc=" + maDatnuoc + ", ten=" + ten + ", maVung=" + maVung + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return ten;
+//	}
 	
 
 }

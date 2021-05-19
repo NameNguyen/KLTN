@@ -15,6 +15,8 @@ import com.shopme.common.entity.KhachHang;
 import com.shopme.security.CustomerUserDetails;
 import com.shopme.security.oauth.CustomOAuth2User;
 
+import net.bytebuddy.utility.RandomString;
+
 @Service
 @Transactional
 public class KhachHangService {
@@ -37,10 +39,10 @@ public class KhachHangService {
 	public void registerCustomer(KhachHang khachHang) {
 		encodePassword(khachHang);		
 		khachHang.setThoiGianTao(new Date());
-		khachHang.setTrangThai(true);
+		khachHang.setTrangThai(false);
 		
-//		String randomCode = RandomString.make(64);
-//		customer.setVerificationCode(randomCode);
+		String randomCode = RandomString.make(64);
+		khachHang.setVerificationCode(randomCode);
 		
 		khachHangReponsive.save(khachHang);
 	}
@@ -85,5 +87,21 @@ public class KhachHangService {
 		
 		System.out.println(khachHang);
 		return khachHang;
+	}
+	public boolean verify(String verificationCode) {
+		KhachHang customer = khachHangReponsive.findByVerificationCode(verificationCode);
+		System.out.println(customer);
+		
+		if (customer == null || customer.isTrangThai()) {
+			return false;
+		} else {
+			khachHangReponsive.trangThai(customer.getMaKhachHang());
+			return true;
+		}
+	}
+	public boolean isEmailUnique(String email) {
+		KhachHang customer = khachHangReponsive.getKhachhangByEmail(email);
+		System.out.println(customer);
+		return customer == null;
 	}
 }

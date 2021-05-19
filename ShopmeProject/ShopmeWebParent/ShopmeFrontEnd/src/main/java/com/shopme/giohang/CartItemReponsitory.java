@@ -27,4 +27,7 @@ public interface CartItemReponsitory extends JpaRepository<MatHangGioHang, Integ
 	@Modifying
 	public void deleteByKhachhangAndSanpham(Integer maSanpham, Integer maKhachHang);
 	
+	@Modifying
+	@Query("DELETE MatHangGioHang m WHERE m.khachhang.id = ?1")
+	public void deleteByKhachhang(Integer maKhachHang);
 }

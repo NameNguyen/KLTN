@@ -1,19 +1,21 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org"
 xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
-<head> 
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+	<title>[[${pageTitle}]] - [[${SITE_NAME}]]</title>
 	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
     <script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
     <script type="text/javascript" th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
   	<link rel="stylesheet" th:href="@{/fontawesome/all.css}" />
   	<link rel="stylesheet" th:href="@{/style.css}" />	
-  	<script type="text/javascript" th:src="@{/js/common.js}" ></script>
 </head>
 <body>
 <div th:fragment="header_menu">
 	<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
 		<a class="navbar-brand" th:href="@{/}">
-			<img th:src="@{/images/shopmelogo.png}" />
+			<img th:src="@{${SITE_LOGO}}" />
 		</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#topNavbar, #searchNavbar">
 			<span class="navbar-toggler-icon"></span>
@@ -73,7 +75,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 						<a class="nav-link">Reviews</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link">Đặt hàng</a>
+						<a class="nav-link" th:href="@{/khachhang/donhang}">Đơn hàng</a>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" th:href="@{/giohang}">Giỏ hàng</a>
@@ -90,6 +92,35 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 	</div>
 </div>
 
+<div th:fragment="deliver_date(date)" th:remove="tag">
+	<span th:text="${#dates.format(date, 'E, dd MMM yyyy')}">Deliver date</span>
+</div>
+
+<div th:fragment="format_time(dateTime)" th:remove="tag">
+	<span th:text="${#dates.format(dateTime, 'yyyy-MM-dd HH:mm:ss')}">Date Time</span>
+</div>
+<div th:fragment="discountPrice" th:remove="tag">
+	<span th:style="${product.discountPercent > 0 ? 'font-size: larger; color: darkred' : ''}">				
+		<span th:if="${CURRENCY_SYMBOL_POSITION == 'before'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>[[${#numbers.formatDecimal(product.discountPrice, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]<span th:if="${CURRENCY_SYMBOL_POSITION == 'after'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
+	</span>
+</div>
+
+<div th:fragment="listPrice" th:remove="tag">
+	<del>
+		<span th:if="${CURRENCY_SYMBOL_POSITION == 'before'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>[[${#numbers.formatDecimal(product.price, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]<span th:if="${CURRENCY_SYMBOL_POSITION == 'after'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
+	</del>	
+</div>
+
+<div th:fragment="currency_format(amount)" th:remove="tag">
+	<span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
+	[[${#numbers.formatDecimal(amount, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]
+	<span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
+</div>
+<div th:fragment="currency_input(amount)" th:remove="tag">
+	<input type="text" readonly class="form-control" th:value="${(currencySymbolPosition == 'before' ? currencySymbol : '') + 
+	#numbers.formatDecimal(amount, 1, thousandsPointType, decimalDigits, decimalPointType) + 
+	(currencySymbolPosition == 'after' ? currencySymbol : '')}">
+</div>	
 <div th:fragment="footer_menu">
 	<div>
 		<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
@@ -112,7 +143,7 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 		</nav>
 	</div>
 	<div th:fragment="footer" class="text-center m-3">
-		<p>contact: nvtamnt99@gmail.com</p>
+		<p>[[${COPYRIGHT}]]</p>
 	</div>	
 </div>
 <div th:fragment="standard_modal" class="modal fade text-center" id="myModal">
@@ -133,5 +164,51 @@ xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 		</div>
 	</div>
 </div>
+<div th:fragment="search_form_and_message(url)" th:remove="tag">
+		<div>
+			<form th:action="@{${url}}" class="form-inline m-3">
+				<input type="hidden" name="sortField" th:value="${sortField}" />
+				<input type="hidden" name="sortDir" th:value="${sortDir}" />
+				Lọc đơn hàng: &nbsp;<input type="search" name="keyword" th:value="${keyword}" class="form-control" placeholder="Keyword" required />
+				&nbsp;&nbsp;
+				<input type="submit" value="Tìm kiếm" class="btn btn-primary" />
+				&nbsp;&nbsp;
+				<input type="button" value="Xóa" class="btn btn-secondary" onclick="clearFilter()" />
+			</form>
+		</div>
+		<div th:if="${message != null}" class="alert alert-success text-center">
+			[[${message}]]
+		</div>	
+</div>
+<div th:fragment="pagination(itemName, baseURL)" th:remove="tag">		
+	<div class="text-center m-1" th:if="${totalItems > 0}">
+		<span>Hiển thị [[${itemName}]] # [[${startCount}]] từ [[${endCount}]] tới [[${totalItems}]]</span>
+	</div>
+	<div class="text-center m-1" th:unless="${totalItems > 0}">
+		<span>Không tìm thấy</span>
+	</div>
+			
+<div th:if="${totalPages > 1}" th:with="pageUrlPostfix = '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir} + ${keyword != null ? '&keyword=' + keyword : ''}">
+		<nav>
+			 <ul class="pagination justify-content-center flex-wrap" th:with="pageUrlPrefix = '/' + ${baseURL} + '/page/'">
+				<li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+					<a th:href="@{${pageUrlPrefix} + '1' + ${pageUrlPostfix}}" class="page-link">Đầu tiên</a>	
+				</li>
+				<li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
+					<a th:href="@{${pageUrlPrefix} + ${currentPage - 1} + ${pageUrlPostfix}}" class="page-link">Trước</a>
+				</li>
+				<li th:each="i: ${#numbers.sequence(1, totalPages)}" th:class="${currentPage != i ? 'page-item' : 'page-item active'}">
+					<a th:href="@{${pageUrlPrefix} + ${i} + ${pageUrlPostfix}}" class="page-link">[[${i}]]</a>
+				</li>
+				<li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+					<a th:href="@{${pageUrlPrefix} + ${currentPage + 1} + ${pageUrlPostfix}}" class="page-link">Kế tiếp</a>
+				</li>
+				<li th:class="${currentPage < totalPages ? 'page-item' : 'page-item disabled'}">
+					<a th:href="@{${pageUrlPrefix} + ${totalPages} + ${pageUrlPostfix}}" class="page-link">Cuối cùng</a>
+				</li>
+			</ul>
+		</nav>
+	</div>	
+</div>			
 </body>
 </html> 

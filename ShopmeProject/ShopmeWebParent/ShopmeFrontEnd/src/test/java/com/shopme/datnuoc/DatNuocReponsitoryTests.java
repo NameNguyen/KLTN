@@ -25,7 +25,7 @@ public class DatNuocReponsitoryTests {
 	public void testCreateDatNuoc() {
 		DatNuoc datNuoc_1 = new DatNuoc("Việt Nam", "+84");
 		DatNuoc saveDatnuoc = datNuocReponsitory.save(datNuoc_1);
-		assertThat(saveDatnuoc.getMa()).isGreaterThan(0);
+		assertThat(saveDatnuoc.getMaDatnuoc()).isGreaterThan(0);
 	}
 	
 	@Test

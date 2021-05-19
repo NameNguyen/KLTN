@@ -30,6 +30,6 @@ public class TinhReponsitoryTest {
 		
 		Tinh saveTinh = tinhReponsitory.save(tinh);
 		
-		assertThat(saveTinh.getMa()).isGreaterThan(0);
+		assertThat(saveTinh.getMaTinh()).isGreaterThan(0);
 	}
 }

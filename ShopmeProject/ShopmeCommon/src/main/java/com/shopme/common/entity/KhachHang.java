@@ -41,6 +41,7 @@ public class KhachHang {
 	private String diaChi2;
 	
 	private String thanhPho;
+	
 	private String tinh;
 	
 	@Column(name = "ma_buu_dien")
@@ -49,18 +50,22 @@ public class KhachHang {
 	@Column(name = "thoi_gian_tao", updatable = false)
 	private Date thoiGianTao;
 	
+	@Column(name = "verification_code", length = 64)
+	private String verificationCode;
 	
 	private boolean trangThai;
 	
 	@Column(name = "ma_Xacnhan", updatable = false)
 	private String maXacnhan;
 	
-//	@Column(name = "ma_ThongbaoDatlaiMatkhau")
-//	private String resetPasswordToken;
-	
 	@ManyToOne
 	@JoinColumn(name = "ma_Datnuoc")
 	private DatNuoc datNuoc;
+	
+//	@Column(name = "ma_ThongbaoDatlaiMatkhau")
+//	private String resetPasswordToken;
+	
+	
 
 	public KhachHang() {
 	}
@@ -218,6 +223,14 @@ public class KhachHang {
 	}
 	
 	
+	public String getVerificationCode() {
+		return verificationCode;
+	}
+
+	public void setVerificationCode(String verificationCode) {
+		this.verificationCode = verificationCode;
+	}
+
 	@Transient
 	public String getDiachi() {
 		
@@ -241,10 +254,7 @@ public class KhachHang {
 
 	@Override
 	public String toString() {
-		return "KhachHang [maKhachHang=" + maKhachHang + ", email=" + email + ", matKhau=" + matKhau + ", ho=" + ho
-				+ ", ten=" + ten + ", soDienThoai=" + soDienThoai + ", diaChi1=" + diaChi1 + ", diaChi2=" + diaChi2
-				+ ", thanhPho=" + thanhPho + ", tinh=" + tinh + ", maBuuDien=" + maBuuDien + ", thoiGianTao="
-				+ thoiGianTao + ", trangThai=" + trangThai + ", maXacnhan=" + maXacnhan + ", datNuoc=" + datNuoc + "]";
+		return "Customer [id=" + maKhachHang + ", email=" + email + ", firstName=" + ho + ", lastName=" + ten + "]";
 	}
 	
 	

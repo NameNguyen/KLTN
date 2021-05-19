@@ -30,17 +30,17 @@
 				<h2>[[${product.ten}]]</h2>
 			</div>
 			<div>
-				<span>Brand: [[${product.nhanhieu.ten}]]</span>
+				<span>Nhãn Hiệu: [[${product.nhanhieu.ten}]]</span>
 			</div>
 			<div>
-				List Price:
-				<span th:if="${product.chietKhau <= 0}">$ [[${product.giaBan}]]</span>
-				<del th:if="${product.chietKhau > 0}"><span>$ [[${product.giaBan}]]</span></del>
+				Bảng giá:
+				<span th:if="${product.chietKhau <= 0}"><div th:replace="sanpham/sanpham_fragment :: price_fragment(${product.giaBan})"></div></span>
+				<del th:if="${product.chietKhau > 0}"><span><div th:replace="sanpham/sanpham_fragment :: price_fragment(${product.giaBan})"></div></span></del>
 			</div>
 			<div th:if="${product.chietKhau > 0}">
-				Price:
-				<span style="font-size: larger; color: darkred">$ [[${product.giamGia}]]</span>
-				([[${product.chietKhau}]] % off)
+				Giá:
+				<span style="font-size: larger; color: darkred"><div th:replace="sanpham/sanpham_fragment :: price_fragment(${product.giamGia})"></div></span>
+				([[${#numbers.formatDecimal(product.chietKhau, 1, THOUSANDS_POINT_TYPE, DECIMAL_DIGITS, DECIMAL_POINT_TYPE)}]]% off)
 			</div>
 			<div>&nbsp;</div>
 			<div th:utext="${product.moTaNgan}"></div>			

@@ -32,4 +32,45 @@ public class TheoDoiDonHang {
 	
 	@Enumerated(EnumType.STRING)
 	private TinhTrangDonHang tinhTrangDonHang;
+
+	public Integer getMaTheoDoiDH() {
+		return maTheoDoiDH;
+	}
+
+	public void setMaTheoDoiDH(Integer maTheoDoiDH) {
+		this.maTheoDoiDH = maTheoDoiDH;
+	}
+
+	public DonHang getDonhang() {
+		return donhang;
+	}
+
+	public void setDonhang(DonHang donhang) {
+		this.donhang = donhang;
+	}
+
+	public String getChuThich() {
+		return chuThich;
+	}
+
+	public void setChuThich(String chuThich) {
+		this.chuThich = chuThich;
+	}
+
+	public Date getThoigian_capnhat() {
+		return thoigian_capnhat;
+	}
+
+	public void setThoigian_capnhat(Date thoigian_capnhat) {
+		this.thoigian_capnhat = thoigian_capnhat;
+	}
+
+	public TinhTrangDonHang getTinhTrangDonHang() {
+		return tinhTrangDonHang;
+	}
+
+	public void setTinhTrangDonHang(TinhTrangDonHang tinhTrangDonHang) {
+		this.tinhTrangDonHang = tinhTrangDonHang;
+	}
+	
 }

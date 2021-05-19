@@ -1,5 +1,8 @@
 package com.shopme.common.entity;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -18,6 +21,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "donhang")
@@ -81,11 +85,253 @@ public class DonHang {
 	
 	@OneToMany(mappedBy = "donhang", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<TheoDoiDonHang> theoDoiDH = new ArrayList<>();
+
+	public Integer getMaDonHang() {
+		return maDonHang;
+	}
+
+	public void setMaDonHang(Integer maDonHang) {
+		this.maDonHang = maDonHang;
+	}
+
+	public String getHo() {
+		return ho;
+	}
+
+	public void setHo(String ho) {
+		this.ho = ho;
+	}
+
+	public String getTen() {
+		return ten;
+	}
+
+	public void setTen(String ten) {
+		this.ten = ten;
+	}
+
+	public String getSoDienThoai() {
+		return soDienThoai;
+	}
+
+	public void setSoDienThoai(String soDienThoai) {
+		this.soDienThoai = soDienThoai;
+	}
+
+	public String getDiaChi1() {
+		return diaChi1;
+	}
+
+	public void setDiaChi1(String diaChi1) {
+		this.diaChi1 = diaChi1;
+	}
+
+	public String getDiaChi2() {
+		return diaChi2;
+	}
+
+	public void setDiaChi2(String diaChi2) {
+		this.diaChi2 = diaChi2;
+	}
+
+	public String getMaBuuDien() {
+		return maBuuDien;
+	}
+
+	public void setMaBuuDien(String maBuuDien) {
+		this.maBuuDien = maBuuDien;
+	}
+
+	public String getThanhPho() {
+		return thanhPho;
+	}
+
+	public void setThanhPho(String thanhPho) {
+		this.thanhPho = thanhPho;
+	}
+
+	public String getTinh() {
+		return tinh;
+	}
+
+	public void setTinh(String tinh) {
+		this.tinh = tinh;
+	}
+
+	public String getQuocGia() {
+		return quocGia;
+	}
+
+	public void setQuocGia(String quocGia) {
+		this.quocGia = quocGia;
+	}
+
+	public Date getThoiGianDatHang() {
+		return thoiGianDatHang;
+	}
+
+	public void setThoiGianDatHang(Date thoiGianDatHang) {
+		this.thoiGianDatHang = thoiGianDatHang;
+	}
+
+	public PhuongThucThanhToan getPhuongThucThanhToan() {
+		return phuongThucThanhToan;
+	}
+
+	public void setPhuongThucThanhToan(PhuongThucThanhToan phuongThucThanhToan) {
+		this.phuongThucThanhToan = phuongThucThanhToan;
+	}
+
+	public float getGiaVanChuyen() {
+		return giaVanChuyen;
+	}
+
+	public void setGiaVanChuyen(float giaVanChuyen) {
+		this.giaVanChuyen = giaVanChuyen;
+	}
+
+	public float getChiPhi() {
+		return chiPhi;
+	}
+
+	public void setChiPhi(float chiPhi) {
+		this.chiPhi = chiPhi;
+	}
+
+	public float getThue() {
+		return thue;
+	}
+
+	public void setThue(float thue) {
+		this.thue = thue;
+	}
+
+	public float getTongPhu() {
+		return tongPhu;
+	}
+
+	public void setTongPhu(float tongPhu) {
+		this.tongPhu = tongPhu;
+	}
+
+	public float getTong() {
+		return tong;
+	}
+
+	public void setTong(float tong) {
+		this.tong = tong;
+	}
+
+	public TinhTrangDonHang getTinhTrangDH() {
+		return tinhTrangDH;
+	}
+
+	public void setTinhTrangDH(TinhTrangDonHang tinhTrangDH) {
+		this.tinhTrangDH = tinhTrangDH;
+	}
+
+	public int getGiaoNgay() {
+		return giaoNgay;
+	}
+
+	public void setGiaoNgay(int giaoNgay) {
+		this.giaoNgay = giaoNgay;
+	}
+
+	public Date getNgayGiaoHang() {
+		return ngayGiaoHang;
+	}
+
+	public void setNgayGiaoHang(Date ngayGiaoHang) {
+		this.ngayGiaoHang = ngayGiaoHang;
+	}
+
+	public KhachHang getKhachHang() {
+		return khachHang;
+	}
+
+	public void setKhachHang(KhachHang khachHang) {
+		this.khachHang = khachHang;
+	}
+
+	public Set<ChiTietDonHang> getChiTietDH() {
+		return chiTietDH;
+	}
+
+	public void setChiTietDH(Set<ChiTietDonHang> chiTietDH) {
+		this.chiTietDH = chiTietDH;
+	}
+
+	public List<TheoDoiDonHang> getTheoDoiDH() {
+		return theoDoiDH;
+	}
+
+	public void setTheoDoiDH(List<TheoDoiDonHang> theoDoiDH) {
+		this.theoDoiDH = theoDoiDH;
+	}
 	
+	public void copyShippingAddressFromCustomer(KhachHang khachHang) {
+		this.ho=khachHang.getHo();
+		this.ten = khachHang.getTen();
+		this.diaChi1 = khachHang.getDiaChi1();
+		this.diaChi2 = khachHang.getDiaChi2();
+		this.thanhPho = khachHang.getThanhPho();
+		this.quocGia = khachHang.getTendatNuoc();
+		this.tinh = khachHang.getTinh();
+		this.soDienThoai = khachHang.getSoDienThoai();
+		this.maBuuDien = khachHang.getMaBuuDien();
+		
+	}
 	
+	public void copyShippingAddress(DiaChi diaChi) {
+		this.ho = diaChi.getHo();
+		this.ten = diaChi.getTen();
+		this.diaChi1 = diaChi.getDongDiachi1();
+		this.diaChi2 = diaChi.getDongDiachi2();
+		this.thanhPho = diaChi.getThanhPho();
+		this.quocGia = diaChi.getDatNuoc().getTen();
+		this.tinh = diaChi.getTinh();
+		this.soDienThoai = diaChi.getSdt();
+		this.maBuuDien = diaChi.getMaBuudien();
+	}
 	
+	@Transient
+	public String getDestination() {
+		String diemDen = thanhPho;
+		
+		if(tinh != null && !tinh.isEmpty()) {
+			diemDen +="." + tinh;
+		}
+		
+		diemDen +=", " + quocGia;
+		
+		return diemDen;
+	}
 	
+	@Transient
+	public String getShippingAddress() {
+		String diaChi = ho;
+		if(ten != null && !ten.isEmpty()) diaChi += " " + ten;
+		diaChi += ", " + diaChi1;
+		if(diaChi2 != null && !diaChi2.isEmpty()) diaChi += " " + diaChi2;
+		diaChi += ", " + thanhPho;
+		if(tinh != null && !tinh.isEmpty()) diaChi += " " + tinh;
+		diaChi += ", " + quocGia;
+		
+		diaChi += ". Mã bưu điện: " + maBuuDien;
+		diaChi += ". Số điện thoại: " + soDienThoai;
+		return diaChi;
+	}
 	
-	
-	
+	public void setDeliverDateOnForm(String dateString) {
+		System.out.println("setDeliverDateOnForm: " + dateString);
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		
+		try {
+			this.ngayGiaoHang = dateFormatter.parse(dateString);
+		} catch (ParseException	 e) {
+			e.printStackTrace();
+		}
+	}
+
 }
