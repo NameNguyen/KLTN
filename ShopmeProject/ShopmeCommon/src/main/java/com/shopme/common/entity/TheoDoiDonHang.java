@@ -1,5 +1,8 @@
 package com.shopme.common.entity;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -12,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "theodoi_donhang")
@@ -72,5 +76,19 @@ public class TheoDoiDonHang {
 	public void setTinhTrangDonHang(TinhTrangDonHang tinhTrangDonHang) {
 		this.tinhTrangDonHang = tinhTrangDonHang;
 	}
+	@Transient
+	public String getUpdatedTimeOnForm() {
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+		return dateFormatter.format(this.thoigian_capnhat);
+	}
 	
+	public void setUpdatedTimeOnForm(String dateString) {
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd'T'hh:mm:ss");
+		
+		try {
+			this.thoigian_capnhat = dateFormatter.parse(dateString);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+	}
 }

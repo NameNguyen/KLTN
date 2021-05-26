@@ -12,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.test.annotation.Rollback;
 
+import com.shopme.common.entity.AuthenticationType;
 import com.shopme.common.entity.DatNuoc;
 import com.shopme.common.entity.KhachHang;
 
@@ -44,5 +45,12 @@ public class KhachHangReponsitoryTest {
 	public void testGetAllKhachHang() {
 		Iterable<KhachHang> listKhachhang = (List<KhachHang>) khachhangReponsitory.findAll();
 		listKhachhang.forEach(kh -> System.out.println(kh));
+	}
+	@Test
+	public void testUpdateAuthenticationType() {
+		int id =1;
+		khachhangReponsitory.updateAuthenticationType(id, AuthenticationType.GOOGLE	);
+		KhachHang khachHang = khachhangReponsitory.findById(id).get();
+		assertThat(khachHang.getAuthenticationType()).isEqualTo(AuthenticationType.GOOGLE);
 	}
 }

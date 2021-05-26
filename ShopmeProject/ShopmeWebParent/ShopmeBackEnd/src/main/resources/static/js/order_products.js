@@ -34,7 +34,7 @@ $(document).ready(function() {
 	
 	formatProductSubtotals();
 	
-	$("#products").on("click", "#addProduct", function(e) {
+	$("#product").on("click", "#addProduct", function(e) {
 		e.preventDefault();
 		link = $(this);
 		url = link.attr('href');
@@ -97,37 +97,37 @@ function updateCountNumbers() {
 function updateSubtotalWhenQuantityChanged(input) {
 	rowNumber = input.attr('rowNumber');
 	quantityValue = input.val();
-	priceValue = parseCurrencyValue($("#price" + rowNumber));
+	priceValue = parseCurrencyValue($("#donGia" + rowNumber));
 	
 	newSubtotal = parseFloat(quantityValue) * parseFloat(priceValue);
 	formattedSubtotal = $.number(newSubtotal, 2);
 	
-	$("#subtotal" + rowNumber).val(formattedSubtotal);	
+	$("#tongphu" + rowNumber).val(formattedSubtotal);	
 }
 
 function updateSubtotalWhenPriceChanged(input) {
 	rowNumber = input.attr('rowNumber');
 	priceValue = parseCurrencyValue(input);
 	
-	quantityValue = $("#quantity" + rowNumber).val();
+	quantityValue = $("#soLuong" + rowNumber).val();
 	newSubtotal = parseFloat(quantityValue) * parseFloat(priceValue);
 	formattedSubtotal = $.number(newSubtotal, 2);
 	
-	$("#subtotal" + rowNumber).val(formattedSubtotal);	
+	$("#tongphu" + rowNumber).val(formattedSubtotal);	
 }
 
 function formatAmounts() {
-	orderSubtotal = $("#subtotal").val();
-	$("#subtotal").val($.number(orderSubtotal, 2));
+	orderSubtotal = $("#tongphu").val();
+	$("#tongphu").val($.number(orderSubtotal, 2));
 	
-	shippingCost = $("#shippingCost").val();
-	$("#shippingCost").val($.number(shippingCost, 2));
+	shippingCost = $("#giaVanChuyen").val();
+	$("#giaVanChuyen").val($.number(shippingCost, 2));
 	
-	total = $("#total").val();
-	$("#total").val($.number(total, 2));
+	total = $("#tong").val();
+	$("#tong").val($.number(total, 2));
 	
-	cost = $("#cost").val();
-	$("#cost").val($.number(cost, 2));
+	cost = $("#chiPhi").val();
+	$("#chiPhi").val($.number(cost, 2));
 }
 
 function updateOrderAmounts() {
@@ -138,7 +138,7 @@ function updateOrderAmounts() {
 		orderSubtotal += parseFloat(productSubtotal); 
 	});
 	
-	$("#subtotal").val($.number(orderSubtotal, 2));
+	$("#tongphu").val($.number(orderSubtotal, 2));
 	
 	orderTotal = 0.0;
 	
@@ -149,25 +149,25 @@ function updateOrderAmounts() {
 		shippingCost += parseFloat(productShip); 
 	});
 	
-	$("#shippingCost").val($.number(shippingCost, 2));
+	$("#ship").val($.number(shippingCost, 2));
 		
-	tax = parseCurrencyValue($("#tax"));
+	tax = parseCurrencyValue($("#thue"));
 	
 	orderTotal = orderSubtotal + shippingCost + tax;
 	
-	$("#total").val($.number(orderTotal, 2));
+	$("#tong").val($.number(orderTotal, 2));
 	
 	totalCost = 0.0;
 	
 	$(".cost-input").each(function(e) {
 		rowNumber = ($(this)).attr('rowNumber');
-		quantityValue = $("#quantity" + rowNumber).val();
+		quantityValue = $("#soLuong" + rowNumber).val();
 		
 		productCost = parseCurrencyValue($(this));		
 		totalCost += parseFloat(productCost) * parseInt(quantityValue); 
 	});
 	
-	$("#cost").val($.number(totalCost, 2));
+	$("#chiPhi").val($.number(totalCost, 2));
 }
 
 function parseCurrencyValue(inputField) {
@@ -178,7 +178,7 @@ function parseCurrencyValue(inputField) {
 
 function addProduct(productId) {
 	if (isProductAlreadyAdded(productId)) {
-		alert("The productId " + productId + " is already added.");
+		alert("Sản phẩm có mã " + productId + " đã được thêm.");
 	} else {
 		insertProductCode(productId);
 		$('#myModal').modal("hide");		
@@ -203,7 +203,7 @@ function isProductAlreadyAdded(productId) {
 function insertProductCode(productId) {
 	nextCount = $(".product-id-hidden").length + 1;
 	
-	url = contextPath + "products/get/" + productId;
+	url = contextPath + "sanpham/get/" + productId;
 	
 	$.get(url, function(productJson) {
 		console.log(productJson);
@@ -222,9 +222,9 @@ function insertProductCode(productId) {
 
 function generateProductCode(productId, productName, productCost, productPrice, productImagePath, nextCount) {
 	rowId = "row" + nextCount;
-	quantityId = "quantity" + nextCount;
-	subtotalId = "subtotal" + nextCount;
-	priceId = "price" + nextCount;
+	quantityId = "soLuong" + nextCount;
+	subtotalId = "tongphu" + nextCount;
+	priceId = "donGia" + nextCount;
 	
 	productCode = `
 		<div class="row border rounded p-1" id="${rowId}">
@@ -293,19 +293,19 @@ function generateProductCode(productId, productName, productCost, productPrice, 
 }
 
 function processCurrencyFieldsBeforeSubmit() {
-	orderCostField = $("#cost");
+	orderCostField = $("#chiPhi");
 	orderCostField.val(orderCostField.val().replace(",", ""));
 	
-	orderSubtotalField = $("#subtotal");
+	orderSubtotalField = $("#tongPhu");
 	orderSubtotalField.val(orderSubtotalField.val().replace(",", ""));	
 	
-	shippingCostField = $("#shippingCost");
+	shippingCostField = $("#giaVanChuyen");
 	shippingCostField.val(shippingCostField.val().replace(",", ""));	
 
-	orderTaxField = $("#tax");
+	orderTaxField = $("#thue");
 	orderTaxField.val(orderTaxField.val().replace(",", ""));
 	
-	orderTotalField = $("#total");
+	orderTotalField = $("#tong");
 	orderTotalField.val(orderTotalField.val().replace(",", ""));
 
 	$(".price-input").each(function(e) {
@@ -325,7 +325,7 @@ function processCurrencyFieldsBeforeSubmit() {
 	
 	$(".ship-input").each(function(e) {
 		shipField = $(this);
-		costshipField.val(shipField.val().replace(",", ""));
+		shipField.val(shipField.val().replace(",", ""));
 	});	
 	
 	return true;

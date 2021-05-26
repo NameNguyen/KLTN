@@ -34,7 +34,6 @@ public class CaidatFilter implements Filter {
 		List<CaiDat> generalSettings = (List<CaiDat>) caiDatService.getGeneralSettings();
 		
 		generalSettings.forEach(setting -> {
-			System.out.println(setting);
 			request.setAttribute(setting.getTuKhoa(), setting.getGiaTri());
 		});
 		

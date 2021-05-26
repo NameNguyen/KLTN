@@ -46,14 +46,14 @@ function generateTrackCode(nextCount) {
 				
 				<div class="col-10">
 				  <div class="form-group row">
-				    <label class="col-form-label">Time:</label>
+				    <label class="col-form-label">Thời gian:</label>
 				    <div class="col">
 						<input type="datetime-local" name="trackDate" value="${currentDateTime}" class="form-control" required
 							style="max-width: 300px"/>						
 				    </div>
 				  </div>					
 				<div class="form-group row">  
-				<label class="col-form-label">Status:</label>
+				<label class="col-form-label">Tình trạng:</label>
 				<div class="col">
 					<select name="trackStatus" class="form-control" required style="max-width: 150px">
 			`;
@@ -65,7 +65,7 @@ function generateTrackCode(nextCount) {
 				    </div>
 				  </div>
 				  <div class="form-group row">
-				    <label class="col-form-label">Notes:</label>
+				    <label class="col-form-label">Chú thích:</label>
 				    <div class="col">
 						<textarea rows="2" cols="10" class="form-control" name="trackNotes" style="max-width: 300px" required></textarea>
 				    </div>

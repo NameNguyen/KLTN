@@ -1,5 +1,6 @@
 package com.shopme.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -12,9 +13,19 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.shopme.security.oauth.CustomerOAuth2UserService;
+import com.shopme.security.oauth.DatabaseLoginSuccessHandler;
+import com.shopme.security.oauth.OAuth2LoginSuccessHandler;
+
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	
+	@Autowired private CustomerOAuth2UserService oAuth2UserService;
+	
+	@Autowired private OAuth2LoginSuccessHandler oAuth2LoginHandler;
+	
+	@Autowired private DatabaseLoginSuccessHandler databaseLoginhandler;
 	
 	@Bean
 	public UserDetailsService userDetailsService() {
@@ -31,12 +42,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers("/khachhang/**", "/giohang").authenticated()
+		.antMatchers("/khachhang/**", "/giohang", "/chitiettaikhoan", "/dathang", "/checkout").authenticated()
 		.anyRequest().permitAll()
 		.and()
 			.formLogin()
 			.loginPage("/dangnhap")
+			.successHandler(databaseLoginhandler)
 			.usernameParameter("email").permitAll()
+		.and()
+			.oauth2Login()
+			.loginPage("/dangnhap")
+			.userInfoEndpoint()
+			.userService(oAuth2UserService)
+			.and()
+			.successHandler(oAuth2LoginHandler)
 		.and()
 				.logout().permitAll();
 	}

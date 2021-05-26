@@ -29,7 +29,7 @@ public interface DonhangReponsitory extends JpaRepository<DonHang, Integer> {
 	
 	public Long countBymaDonHang(Integer id);
 
-//	@Query("SELECT NEW com.shopme.common.entity.DonHang(o.maDonHang, o.thoiGianDatHang, o.chiPhi, o.tongPhu, o.tong)"
-//			+ " FROM DonHang o WHERE o.thoiGianDatHang BETWEEN ?1 and ?2 ORDER BY o.thoiGianDatHang ASC")
-//	public List<DonHang> findBythoiGianDatHangBetween(Date startTime, Date endTime);
+	@Query("SELECT NEW com.shopme.common.entity.DonHang(o.maDonHang, o.thoiGianDatHang, o.chiPhi, o.tongPhu, o.tong)"
+			+ " FROM DonHang o WHERE o.thoiGianDatHang BETWEEN ?1 and ?2 ORDER BY o.thoiGianDatHang ASC")
+	public List<DonHang> findBythoiGianDatHangBetween(Date startTime, Date endTime);
 }

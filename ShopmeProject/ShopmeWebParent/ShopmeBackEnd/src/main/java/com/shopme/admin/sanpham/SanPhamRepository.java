@@ -39,4 +39,8 @@ public interface SanPhamRepository extends PagingAndSortingRepository<SanPham, I
 			+ "OR p.danhmuc.ten LIKE %?3%)")			
 	public Page<SanPham> searchInCategory(Integer categoryId, String categoryIdMatch, 
 			String keyword, Pageable pageable);
+	
+	
+	@Query("SELECT p FROM SanPham p WHERE p.ten LIKE %?1%")
+	public Page<SanPham> searchSanPhamByTen(String keyword, Pageable pageable);	
 }

@@ -81,6 +81,17 @@ public class SanPham {
 	@OneToMany(mappedBy = "sanpham", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ChiTietSanPham> chitiet = new ArrayList<>();
 
+	public SanPham(String tenNhanhieu) {
+		this.nhanhieu = new NhanHieu(tenNhanhieu);
+	}
+
+	public SanPham() {
+	}
+
+	public SanPham(Integer maSanPham) {
+		this.maSanPham = maSanPham;
+	}
+
 	public Integer getMaSanPham() {
 		return maSanPham;
 	}

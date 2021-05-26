@@ -33,9 +33,8 @@ public class DiachiTests {
 		address.setHo("Nguyễn");
 		address.setTen("Nam");
 		address.setSdt("646-232-3902");
-		address.setDongDiachi1("Gò Vấp HCM");
+		address.setDongDiachi1("Gò Vấp");
 		address.setThanhPho("Hồ Chí Minh");
-		address.setTinh("Nghệ An");
 		address.setMaBuudien("+37");
 		address.setChonMacdinh(true);
 		

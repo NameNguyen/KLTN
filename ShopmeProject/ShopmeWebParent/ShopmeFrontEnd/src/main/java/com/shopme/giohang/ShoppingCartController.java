@@ -104,6 +104,8 @@ public class ShoppingCartController {
 		
 		if(diaChiMacdinh != null) {
 			giaVanChuyen = cartService.getShippingRateForAddress(diaChiMacdinh);
+			model.addAttribute("diaChiNhanhang", khachHang.getDiachi());
+			System.out.println(khachHang.getDiachi());
 		}else {
 			giaVanChuyen = cartService.getShippingRateForCustomer(khachHang);
 		}
@@ -111,6 +113,7 @@ public class ShoppingCartController {
 		if (giaVanChuyen == null) {
 			return "redirect:/giohang";
 		}
+		
 		
 		String currencyCode = caiDatService.getCurrencyCode();
 		
@@ -122,8 +125,8 @@ public class ShoppingCartController {
 		
 		float tongPhi = tongTien + tongPhiVanchuyen;
 		Date deliverDate = donHangService.calculateDeliverDate(giaVanChuyen.getSoNgay());
-		model.addAttribute("currencyCode", currencyCode);
 		
+		model.addAttribute("currencyCode", currencyCode);
 		model.addAttribute("dsGiohang", dsGiohang);
 		model.addAttribute("khachHang", khachHang);
 		
@@ -153,6 +156,7 @@ public class ShoppingCartController {
 			giaVanChuyen = cartService.getShippingRateForAddress(diaChiMacdinh);
 		}else {
 			model.addAttribute("diaChiGiaohang", khachHang.getDiachi());
+			System.out.println(khachHang.getDiachi());
 			giaVanChuyen = cartService.getShippingRateForCustomer(khachHang);
 		}
 		

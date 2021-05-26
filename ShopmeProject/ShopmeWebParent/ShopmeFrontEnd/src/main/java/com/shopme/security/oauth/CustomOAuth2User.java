@@ -8,10 +8,13 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 
 public class CustomOAuth2User implements OAuth2User{
 	
+	private String clientName;
+	private String fullName;
 	private OAuth2User oauth2User;
 	
-	public CustomOAuth2User(OAuth2User oauth2User) {
+	public CustomOAuth2User(OAuth2User oauth2User, String clientName) {
 		this.oauth2User = oauth2User;
+		this.clientName = clientName;
 	}
 
 	@Override
@@ -28,13 +31,22 @@ public class CustomOAuth2User implements OAuth2User{
 
 	@Override
 	public String getName() {
-		return oauth2User.getAttribute("ho");
+		return oauth2User.getAttribute("name");
 	}
 	public String getEmail() {
 		return oauth2User.getAttribute("email");
 	}
-	public String getFullname() {
-		return oauth2User.getAttribute("ten");
+	public String getHoTen() {
+		return oauth2User.getAttribute("name");
 	}
-	
+
+	public String getClientName() {
+		return clientName;
+	}
+	public String getFullName() {
+		return fullName != null ? fullName : oauth2User.getAttribute("name");
+	}
+	public void setFullName(String fullName) {
+		this.fullName = fullName;
+	} 
 }

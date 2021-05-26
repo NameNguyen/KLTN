@@ -19,19 +19,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.Tienich;
 import com.shopme.caidat.CaidatService;
 import com.shopme.caidat.EmailSettingBag;
 import com.shopme.common.entity.DatNuoc;
 import com.shopme.common.entity.KhachHang;
+import com.shopme.security.CustomerUserDetails;
 import com.shopme.security.oauth.CustomOAuth2User;
+import com.shopme.security.oauth.CustomerOAuth2UserService;
 
 @Controller
 public class KhachhangController {
 
-	@Autowired
-	private KhachHangService khachHangService;
+	@Autowired private KhachHangService khachHangService;
 	@Autowired private CaidatService settingService;
 	
 	@GetMapping("/dangky")
@@ -122,5 +124,75 @@ public class KhachhangController {
 		boolean verified = khachHangService.verify(code);
 		System.out.println(verified);
 		return "dangky/" + (verified ? "verify_success" : "verify_fail");
+	}
+	@GetMapping("/chitiettaikhoan")
+	public String viewAccountDetails(Model model, HttpServletRequest request) {
+		String email = getEmailOfAuthenticatedCustomer(request);
+		KhachHang customer = khachHangService.getCustomerByEmail(email);
+		List<DatNuoc> listCountries = khachHangService.listAllCountries();
+//		
+		model.addAttribute("customer", customer);
+		model.addAttribute("listCountries", listCountries);
+		Object principal = request.getUserPrincipal();
+		String pricipalType = principal.getClass().getName();
+		System.out.println("Principal name: " + request.getUserPrincipal().getName());
+		System.out.println(pricipalType);
+		
+		return "khachhang/account_form";
+	}
+	private String getEmailOfAuthenticatedCustomer(HttpServletRequest request) {
+		Object principal = request.getUserPrincipal();
+		String customerEmail = null;
+		
+		if (principal instanceof UsernamePasswordAuthenticationToken 
+				|| principal instanceof RememberMeAuthenticationToken) {
+			customerEmail = request.getUserPrincipal().getName();
+		} else if (principal instanceof OAuth2AuthenticationToken) {
+			OAuth2AuthenticationToken oauth2Token = (OAuth2AuthenticationToken) principal;
+			CustomOAuth2User oauth2User = (CustomOAuth2User) oauth2Token.getPrincipal();
+			customerEmail = oauth2User.getEmail();
+		}
+		
+		return customerEmail;
+	}
+	@PostMapping("/update_chitiet_taikhoan")
+	public String updateAccountDetails(Model model, KhachHang customer, RedirectAttributes ra,
+			HttpServletRequest request) {
+		khachHangService.update(customer);
+		ra.addFlashAttribute("message", "Chi tiết tài khoản của bạn đã được cập nhật.");
+		
+		updateNameForAuthenticatedCustomer(customer, request);
+		
+		return "redirect:/chitiettaikhoan";
+	}
+	private void updateNameForAuthenticatedCustomer(KhachHang customer, HttpServletRequest request) {
+		Object principal = request.getUserPrincipal();
+		
+		if (principal instanceof UsernamePasswordAuthenticationToken 
+				|| principal instanceof RememberMeAuthenticationToken) {
+			CustomerUserDetails userDetails = getCustomerUserDetailsObject(principal);
+			KhachHang authenticatedCustomer = userDetails.getKhachhang();
+			authenticatedCustomer.setHo(customer.getHo());
+			authenticatedCustomer.setTen(customer.getTen());
+			
+		} else if (principal instanceof OAuth2AuthenticationToken) {
+			OAuth2AuthenticationToken oauth2Token = (OAuth2AuthenticationToken) principal;
+			CustomOAuth2User oauth2User = (CustomOAuth2User) oauth2Token.getPrincipal();
+			String fullName = customer.getHo() + " " + customer.getTen();
+			oauth2User.setFullName(fullName);
+		}		
+	}
+	
+	private CustomerUserDetails getCustomerUserDetailsObject(Object principal) {
+		CustomerUserDetails userDetails = null;
+		if (principal instanceof UsernamePasswordAuthenticationToken) {
+			UsernamePasswordAuthenticationToken token = (UsernamePasswordAuthenticationToken) principal;
+			userDetails = (CustomerUserDetails) token.getPrincipal();
+		} else if (principal instanceof RememberMeAuthenticationToken) {
+			RememberMeAuthenticationToken token = (RememberMeAuthenticationToken) principal;
+			userDetails = (CustomerUserDetails) token.getPrincipal();
+		}
+		
+		return userDetails;
 	}
 }

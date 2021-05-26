@@ -160,8 +160,8 @@ public class DiaChi {
 		
 		diachi += ", " + datNuoc.getTen();
 		
-		diachi += ". Postal code: " + maBuudien;
-		diachi += ". Phone number: " + sdt;
+		diachi += ". Mã bưu điện: " + maBuudien;
+		diachi += ". Số điện thoại: " + sdt;
 		
 		return diachi;
 	}

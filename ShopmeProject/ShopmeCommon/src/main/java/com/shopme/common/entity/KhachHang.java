@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -62,9 +64,12 @@ public class KhachHang {
 	@JoinColumn(name = "ma_Datnuoc")
 	private DatNuoc datNuoc;
 	
-//	@Column(name = "ma_ThongbaoDatlaiMatkhau")
-//	private String resetPasswordToken;
+	@Column(name = "reset_password_token", length = 30)
+	private String resetPasswordToken;
 	
+	@Enumerated(EnumType.STRING)
+	@Column(name = "authentication_type", length = 10)
+	private AuthenticationType authenticationType;
 	
 
 	public KhachHang() {
@@ -198,7 +203,13 @@ public class KhachHang {
 		return ho + " " + ten;
 	}
 
+	public AuthenticationType getAuthenticationType() {
+		return authenticationType;
+	}
 
+	public void setAuthenticationType(AuthenticationType authenticationType) {
+		this.authenticationType = authenticationType;
+	}
 
 	public String getMaXacnhan() {
 		return maXacnhan;
@@ -231,6 +242,14 @@ public class KhachHang {
 		this.verificationCode = verificationCode;
 	}
 
+	public String getResetPasswordToken() {
+		return resetPasswordToken;
+	}
+
+	public void setResetPasswordToken(String resetPasswordToken) {
+		this.resetPasswordToken = resetPasswordToken;
+	}
+
 	@Transient
 	public String getDiachi() {
 		
@@ -247,7 +266,7 @@ public class KhachHang {
 		diachi += ", " + datNuoc.getTen();
 			
 		diachi += ". Mã bưu điện: " + maBuuDien;
-		diachi += ". Số điện thoại" + soDienThoai;
+		diachi += ". Số điện thoại: " + soDienThoai;
 		
 		return diachi;
 	}

@@ -86,6 +86,18 @@ public class DonHang {
 	@OneToMany(mappedBy = "donhang", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<TheoDoiDonHang> theoDoiDH = new ArrayList<>();
 
+	
+	public DonHang() {
+	}
+
+	public DonHang(Integer maDonHang, Date thoiGianDatHang, float chiPhi, float tongPhu, float tong) {
+		this.maDonHang = maDonHang;
+		this.thoiGianDatHang = thoiGianDatHang;
+		this.chiPhi = chiPhi;
+		this.tongPhu = tongPhu;
+		this.tong = tong;
+	}
+
 	public Integer getMaDonHang() {
 		return maDonHang;
 	}
@@ -322,7 +334,11 @@ public class DonHang {
 		diaChi += ". Số điện thoại: " + soDienThoai;
 		return diaChi;
 	}
-	
+	@Transient
+	public String getDeliverDateOnForm() {
+		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");
+		return dateFormatter.format(this.ngayGiaoHang);
+	}
 	public void setDeliverDateOnForm(String dateString) {
 		System.out.println("setDeliverDateOnForm: " + dateString);
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd");

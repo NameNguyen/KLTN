@@ -36,9 +36,29 @@ public class ChiTietDonHang {
 	@JoinColumn(name = "sanpham_id")
 	private SanPham sanpham;
 
+	public ChiTietDonHang() {
+	}
+	
+	public ChiTietDonHang(String categoryName, float subtotal, float cost, float ship, int quantity) {
+		this.tongphu = subtotal;
+		this.chiPhi = cost;
+		this.ship = ship;
+		this.sanpham = new SanPham(categoryName);
+		this.soLuong = quantity;
+	}
+	
+	public ChiTietDonHang(float subtotal, float cost, float ship, String productName, int quantity) {
+		this.tongphu = subtotal;
+		this.chiPhi = cost;
+		this.ship = ship;
+		this.sanpham = new SanPham();
+		this.sanpham.setTen(productName);
+		this.soLuong = quantity;
+	}	
 	public Integer getMaChiTietDonHang() {
 		return maChiTietDonHang;
 	}
+
 
 	public void setMaChiTietDonHang(Integer maChiTietDonHang) {
 		this.maChiTietDonHang = maChiTietDonHang;

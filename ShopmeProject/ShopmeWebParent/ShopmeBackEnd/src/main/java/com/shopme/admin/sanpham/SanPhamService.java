@@ -112,4 +112,10 @@ public class SanPhamService {
 			throw new SanPhamNotFoundException("Không thể tìm thấy bất kỳ sản phẩm nào có ID " + maSanPham);
 		}
 	}
+	public Page<SanPham> searchProducts(int pageNum, String keyword) {
+		Sort sort = Sort.by("ten").ascending();
+		Pageable pageable = PageRequest.of(pageNum - 1, PRODUCTS_PER_PAGE, sort);
+		
+		return repo.searchSanPhamByTen(keyword, pageable);
+	}
 }
