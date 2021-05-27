@@ -30,6 +30,20 @@ public class MatHangGioHang {
 	@Transient
 	private float ship;
 
+	public MatHangGioHang() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public MatHangGioHang(Integer maMHGH, KhachHang khachhang, SanPham sanpham, int soLuong, float ship) {
+		super();
+		this.maMHGH = maMHGH;
+		this.khachhang = khachhang;
+		this.sanpham = sanpham;
+		this.soLuong = soLuong;
+		this.ship = ship;
+	}
+
 	public Integer getMaMHGH() {
 		return maMHGH;
 	}

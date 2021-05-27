@@ -37,6 +37,21 @@ public class TheoDoiDonHang {
 	@Enumerated(EnumType.STRING)
 	private TinhTrangDonHang tinhTrangDonHang;
 
+	public TheoDoiDonHang() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public TheoDoiDonHang(Integer maTheoDoiDH, DonHang donhang, String chuThich, Date thoigian_capnhat,
+			TinhTrangDonHang tinhTrangDonHang) {
+		super();
+		this.maTheoDoiDH = maTheoDoiDH;
+		this.donhang = donhang;
+		this.chuThich = chuThich;
+		this.thoigian_capnhat = thoigian_capnhat;
+		this.tinhTrangDonHang = tinhTrangDonHang;
+	}
+
 	public Integer getMaTheoDoiDH() {
 		return maTheoDoiDH;
 	}

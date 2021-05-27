@@ -1,5 +1,6 @@
 package com.shopme.donhang;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.common.entity.DonHang;
 import com.shopme.common.entity.KhachHang;
+import com.shopme.common.entity.TheoDoiDonHang;
 import com.shopme.common.entity.TinhTrangDonHang;
 import com.shopme.khachhang.KhachHangService;
 import com.shopme.security.CustomerUserDetails;
@@ -95,14 +97,19 @@ public class DonhangController {
 	@GetMapping("/donhang/delete/{id}")
 	public String deleteOrder(
 			@PathVariable(name = "id") Integer id, 
-			Model model, RedirectAttributes ra,
-			@AuthenticationPrincipal 
-			CustomerUserDetails userDetails) {
+			Model model, RedirectAttributes ra, @AuthenticationPrincipal CustomerUserDetails userDetails) {
 		String userEmail = userDetails.getUsername();
 		KhachHang customer = customerService.getCustomerByEmail(userEmail);
 		DonHang order = orderService.getOrderDetails(id, customer);
 		order.setTinhTrangDH(TinhTrangDonHang.CANCELLED);
+		TheoDoiDonHang firstDonhang = new TheoDoiDonHang();
+		firstDonhang.setDonhang(order);
+		firstDonhang.setTinhTrangDonHang(TinhTrangDonHang.CANCELLED);
+		firstDonhang.setThoigian_capnhat(new Date());
+		firstDonhang.setChuThich(TinhTrangDonHang.CANCELLED.getDescription());
 		
+		order.getTheoDoiDH().add(firstDonhang);
+				
 		orderService.saveDonhang(order);
 		
 		return "redirect:/khachhang/donhang";

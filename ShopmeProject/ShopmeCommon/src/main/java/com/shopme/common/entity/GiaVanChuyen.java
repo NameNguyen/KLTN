@@ -28,6 +28,21 @@ public class GiaVanChuyen {
 	
 	private String tinh;
 
+	public GiaVanChuyen() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public GiaVanChuyen(Integer ma, float gia, int soNgay, boolean hoTroCOD, DatNuoc datNuoc, String tinh) {
+		super();
+		this.ma = ma;
+		this.gia = gia;
+		this.soNgay = soNgay;
+		this.hoTroCOD = hoTroCOD;
+		this.datNuoc = datNuoc;
+		this.tinh = tinh;
+	}
+
 	public Integer getMa() {
 		return ma;
 	}

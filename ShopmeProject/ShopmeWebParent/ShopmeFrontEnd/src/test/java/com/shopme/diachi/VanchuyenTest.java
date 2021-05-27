@@ -30,7 +30,7 @@ public class VanchuyenTest {
 		giaVanChuyen.setGia(30000.0f);
 		giaVanChuyen.setHoTroCOD(true);
 		giaVanChuyen.setSoNgay(3);
-		giaVanChuyen.setTinh("Nghệ An");
+		giaVanChuyen.setTinh("Hồ Chí Minh");
 		
 		GiaVanChuyen savedVanChuyen = vanChuyenRepo.save(giaVanChuyen);
 		

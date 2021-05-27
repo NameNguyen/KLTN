@@ -2,26 +2,26 @@ var dropdownCountries;
 var dropdownStates;
 
 $(document).ready(function() {
-	dropdownCountries = $("#country");
+	dropdownCountries = $("#datNuoc");
 	dropdownStates = $("#listStates");
 
 	dropdownCountries.on("change", function() {
 		loadStates4Country();
-		$("#state").val("").focus();
+		$("#tinh").val("").focus();
 	});		
 });
 
 function loadStates4Country() {
-	selectedCountry = $("#country option:selected");
+	selectedCountry = $("#datNuoc option:selected");
 	countryId = selectedCountry.val();
 	
-	url = contextPath + "states/list/country/" + countryId;
+	url = contextPath + "caidat/list_states_by_country/" + countryId;
 	
 	$.get(url, function(responseJson) {
 		dropdownStates.empty();
 		
 		$.each(responseJson, function(index, state) {
-			$("<option>").val(state.name).text(state.name).appendTo(dropdownStates);
+			$("<option>").val(state.ten).text(state.ten).appendTo(dropdownStates);
 		});
 	}).done(function() {
 	})	
