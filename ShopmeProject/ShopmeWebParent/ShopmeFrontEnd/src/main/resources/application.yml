@@ -33,3 +33,8 @@ spring:
             - public_profile
   thymeleaf:
     suffix: .html
+paypal:
+    mode: sandbox
+    client:
+          app: AQNSC3xO7KE2S89dFSmtHXklFanLCWzkl4P8WvZP_0bwA71EXlSPNXvsmOz6zSl0qpWFu_xBLVcNWIEw
+          secret: EKdb241iuRVApitj-vOL2HtpVwZhmDhilv7M-pq7ITlwccth6a6WLaB4eGp3XNB-YnWPG-sGlv8kvC4T

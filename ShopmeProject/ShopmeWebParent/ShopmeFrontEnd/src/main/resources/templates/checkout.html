@@ -17,7 +17,7 @@
 				<div class="card">
 					<div class="card-header"><h5>Thông tin vận chuyển</h5></div>
 					<div class="card-body">
-						<p><b>Vận chuyển tới: </b>[[${diaChiNhanhang}]]<a th:href="@{/}">[Gửi đến một địa chỉ khác]</a></p>
+						<p><b>Vận chuyển tới: </b>[[${diaChiNhanhang}]]<a th:href="@{/diachi(redirect=checkout)}">[Gửi đến một địa chỉ khác]</a></p>
 						<p><b>Ngày giao hàng: </b>[[${giaVanchuyen.soNgay}]]</p>
 						<p><b>Ngày giao hàng dự kiến: </b><div th:replace="navigation :: deliver_date(${deliverDate})">Ngày giao hàng</div></p>
 					</div>
@@ -31,9 +31,11 @@
 								&nbsp;&nbsp;&nbsp;
 								<button type="submit" class="btn btn-primary d-none" id="buttonSubmit">Đặt hàng với COD</button>
 							</p>
+							
 						</div>
 						
-						<div id="paypal-button-container"></div>
+						<div id="paypal-button-container">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -89,15 +91,17 @@
 			</div>
 		</div>
 	</form>
-
-	<form id="paypalForm" method="post" th:action="@{/}">
-		<input type="hidden" id="orderId" name="orderId" />
-		<input type="hidden" id="paymentMethod" name="paymentMethod" value="PAYPAL" />
-		<input type="hidden" id="totalAmount" name="totalAmount" /> 
-	</form>
-
-
-
+	<div class="card mt-3 mb-3">
+		<div class="card-header"><h5>Thanh toán bằng PAYPAL</h5></div>
+			<div class="card-body">
+				<form method="post" th:action="@{/paypal}">
+					<input type="radio" name="paymentMethod" id="radioPaypal" value="PAYPAL" />Thanh toán bằng Paypal
+					&nbsp;&nbsp;&nbsp;
+					<button type="submit" class="btn btn-primary d-none" id="buttonSubmitPaypal">Đặt hàng với Paypal</button>
+				</form>
+			</div>
+	</div>
+	
 	<div th:replace="navigation :: standard_modal"></div>
 	<div th:replace="navigation :: footer_menu"></div>
 </div>
@@ -109,6 +113,11 @@
 	$(document).ready(function() {
 		$("#radioCOD").on("click", function(e) {
 			$("#buttonSubmit").removeClass("d-none");			
+		});		
+	});	
+	$(document).ready(function() {
+		$("#radioPaypal").on("click", function(e) {
+			$("#buttonSubmitPaypal").removeClass("d-none");			
 		});		
 	});	
 	

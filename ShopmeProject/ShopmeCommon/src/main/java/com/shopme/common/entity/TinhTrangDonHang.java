@@ -7,55 +7,55 @@ public enum TinhTrangDonHang {
 		}
 	},
 	
-	CANCELLED {
+	HUY {
 		public String getDescription() {
 			return "Đơn hàng đã bị hủy";
 		}		
 	}, 
 	
-	PROCESSING {
+	XU_LY {
 		public String getDescription() {
 			return "Yêu cầu đang được xử lý";
 		}		
 	},
 	
-	PACKAGED {
+	DONG_GOI {
 		public String getDescription() {
 			return "Sản phẩm được đóng gói để vận chuyển";
 		}		
 	},
 	
-	PICKED {
+	DA_DONG {
 		public String getDescription() {
 			return "Người giao hàng đã chọn gói hàng";
 		}		
 	},
 	
-	SHIPPING {
+	VAN_CHUYEN {
 		public String getDescription() {
 			return "Gói hàng đang được chuyển đến";
 		}		
 	},
 	
-	DELIVERED {
+	GIAO_HANG {
 		public String getDescription() {
 			return "Gói hàng đã được giao";
 		}		
 	},
 	
-	RETURNED {
+	TRA_VE {
 		public String getDescription() {
 			return "Gói hàng đã được trả lại";
 		}		
 	},
 	
-	PAID {
+	THANH_TOAN {
 		public String getDescription() {
 			return "Khách hàng đã thanh toán đơn đặt hàng này";
 		}		
 	},
 	
-	REFUNDED {
+	HOAN_TRA {
 		public String getDescription() {
 			return "Đơn đặt hàng đã được hoàn lại cho khách hàng";
 		}		

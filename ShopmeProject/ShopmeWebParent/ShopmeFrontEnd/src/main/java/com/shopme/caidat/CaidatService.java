@@ -34,6 +34,9 @@ public class CaidatService {
 	public List<CaiDat> getCurrencySettings() {
 		return getSettings(TheloaiCaiDat.CURRENCY);
 	}
+	public PaymentSettingBag getPaymentSettings() {
+		return new PaymentSettingBag(getSettings(TheloaiCaiDat.PAYMENT));
+	}
 	public String getCurrencyCode() {
 		CaiDat setting = caiDatRepo.findByTuKhoa("CURRENCY_ID");
 		Integer currencyId = Integer.parseInt(setting.getGiaTri());

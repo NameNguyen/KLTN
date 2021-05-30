@@ -17,11 +17,11 @@ import com.shopme.vanchuyen.VanchuyenReponsitory;
 
 @Service
 @Transactional
-public class ShoppingCartService {
+public class GioHangService {
 	
 	static final int DIM_DIVISOR = 139;
 
-	@Autowired private CartItemReponsitory cartRepo;
+	@Autowired private MatHangGioHangReponsitory cartRepo;
 	
 	@Autowired private SanPhamRepository sanPhamRepo;
 	

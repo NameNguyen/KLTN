@@ -23,7 +23,7 @@ import com.shopme.common.entity.PhuongThucThanhToan;
 import com.shopme.common.entity.SanPham;
 import com.shopme.common.entity.TheoDoiDonHang;
 import com.shopme.common.entity.TinhTrangDonHang;
-import com.shopme.giohang.CartItemReponsitory;
+import com.shopme.giohang.MatHangGioHangReponsitory;
 
 @Service
 @Transactional
@@ -32,7 +32,7 @@ public class DonhangService  {
 
 	@Autowired private DonhangReponsitory donHangRepo;
 	
-	@Autowired private CartItemReponsitory cartRepo;
+	@Autowired private MatHangGioHangReponsitory cartRepo;
 	
 	
 	public DonHang datHang(KhachHang khachHang, DiaChi diaChi, List<MatHangGioHang> dsGiohang,
@@ -90,9 +90,9 @@ public class DonhangService  {
 			
 			TheoDoiDonHang theoDoiDonHang = new TheoDoiDonHang();
 			theoDoiDonHang.setDonhang(donHang);
-			theoDoiDonHang.setTinhTrangDonHang(TinhTrangDonHang.PAID);
+			theoDoiDonHang.setTinhTrangDonHang(TinhTrangDonHang.THANH_TOAN);
 			theoDoiDonHang.setThoigian_capnhat(new Date());
-			theoDoiDonHang.setChuThich(TinhTrangDonHang.PAID.getDescription());
+			theoDoiDonHang.setChuThich(TinhTrangDonHang.THANH_TOAN.getDescription());
 			donHang.getTheoDoiDH().add(theoDoiDonHang);
 		}
 		

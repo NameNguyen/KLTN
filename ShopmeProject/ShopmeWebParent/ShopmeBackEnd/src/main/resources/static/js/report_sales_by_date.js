@@ -1,4 +1,3 @@
-// Report Sales by Date
 $(document).ready(function(){
 	$(".btn-sales-by-date").on("click", function(e) {
 		
@@ -19,15 +18,14 @@ function loadReportSalesByDate(period) {
 	url = contextPath + "baocao/sales_by_date/" + period;
 
 	var data = new google.visualization.DataTable();
-	data.addColumn('string', 'Ngày');
-	data.addColumn('number', 'Tổng doanh thu');
-	data.addColumn('number', 'Mạng lưới bán hàng');
-	data.addColumn('number', 'Đơn hàng');
+	data.addColumn('string', 'Date');
+	data.addColumn('number', 'Gross Sales');
+	data.addColumn('number', 'Net Sales');
+	data.addColumn('number', 'Orders');
 	
 	totalGrossSales = 0.0;
 	totalNetSales = 0.0;
 	totalOrders = 0;
-	// totalProducts = 0;
 	
 	$.get(url, function(reportJson) {
 
@@ -49,8 +47,8 @@ function loadReportSalesByDate(period) {
 	          },
 	          vAxes: {
 	            // Adds titles to each axis.
-	            0: {title: 'Sản lượng bán ra', format: 'currency'},
-	            1: {title: 'Số lượng đơn đặt hàng'}
+	            0: {title: 'Sales Amount', format: 'currency'},
+	            1: {title: 'Number of Orders'}
 	          }		
 		};
 		
@@ -86,10 +84,10 @@ function getDays(period) {
 }
 
 function getChartTitle(period) {
-	if (period == 'last_7_days') return "Doanh số bán hàng trong 7 ngày qua";
-	if (period == 'last_28_days') return "Doanh số bán hàng trong 28 ngày qua";
-	if (period == 'last_6_months') return "Doanh số bán hàng trong 6 tháng qua";
-	if (period == 'last_year') return "Doanh số bán hàng trong năm ngoái";
+	if (period == 'last_7_days') return "Sales in Last 7 Days";
+	if (period == 'last_28_days') return "Sales in Last 28 Days";
+	if (period == 'last_6_months') return "Sales in Last 6 Months";
+	if (period == 'last_year') return "Sales in Last Year";
 	
 	return "";
 }

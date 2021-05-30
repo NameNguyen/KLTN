@@ -8,45 +8,40 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.shopme.Tienich;
 import com.shopme.common.entity.DonHang;
 import com.shopme.common.entity.KhachHang;
 import com.shopme.common.entity.TheoDoiDonHang;
 import com.shopme.common.entity.TinhTrangDonHang;
 import com.shopme.khachhang.KhachHangService;
-import com.shopme.security.CustomerUserDetails;
 
 @Controller
 public class DonhangController {
 	
-	@Autowired
-	private DonhangService orderService;
+	@Autowired private DonhangService orderService;
 	
-	@Autowired
-	private KhachHangService customerService;	
+	@Autowired private KhachHangService khachHangService;
 
 	@GetMapping("/khachhang/donhang")
-	public String listOrders(Model model, HttpServletRequest request,
-			@AuthenticationPrincipal CustomerUserDetails userDetails) {
-		return listOrdersByPage(model, userDetails, request, 1, "thoiGianDatHang", "desc", null);
+	public String listOrders(Model model, HttpServletRequest request) {
+		return listOrdersByPage(model, request, 1, "thoiGianDatHang", "desc", null);
 	}
 	@GetMapping("/khachhang/donhang/page/{pageNum}")
-	public String listOrdersByPage(Model model,
-						@AuthenticationPrincipal CustomerUserDetails userDetails,			
+	public String listOrdersByPage(Model model,			
 						HttpServletRequest request,
 						@PathVariable(name = "pageNum") int pageNum,
 						@Param("sortField") String sortField,
 						@Param("sortDir") String sortDir,
 						@Param("keyword") String keyword
 			) {
-		String userEmail = userDetails.getUsername();
-		KhachHang customer = customerService.getCustomerByEmail(userEmail);
+		
+		KhachHang customer = getAuthenticatedCustomer(request);
 		
 		Page<DonHang> page = orderService.getOrdersForCustomer(
 								customer, pageNum, sortField, sortDir, keyword);
@@ -80,16 +75,14 @@ public class DonhangController {
 		return "donhang/donhang";		
 	}
 	@GetMapping("/khachhang/donhang/detail/{id}")
-	public String viewOrderDetails(Model model,
-			@PathVariable(name = "id") Integer id,
-			@AuthenticationPrincipal CustomerUserDetails userDetails) {
-//		Customer customer = customerService.getCurrentlyLoggedInCustomer(authentication);
-		String userEmail = userDetails.getUsername();
-		KhachHang customer = customerService.getCustomerByEmail(userEmail);
+	public String viewOrderDetails(Model model, HttpServletRequest request,
+			@PathVariable(name = "id") Integer id) {
+		
+		KhachHang customer = getAuthenticatedCustomer(request);
 		
 		DonHang order = orderService.getOrderDetails(id, customer);
 		
-		model.addAttribute("pageTitle", "Order Details");
+		model.addAttribute("pageTitle", "Chi tiết đơn hàng");
 		model.addAttribute("order", order);
 		
 		return "donhang/order_detail_modal";
@@ -97,16 +90,15 @@ public class DonhangController {
 	@GetMapping("/donhang/delete/{id}")
 	public String deleteOrder(
 			@PathVariable(name = "id") Integer id, 
-			Model model, RedirectAttributes ra, @AuthenticationPrincipal CustomerUserDetails userDetails) {
-		String userEmail = userDetails.getUsername();
-		KhachHang customer = customerService.getCustomerByEmail(userEmail);
+			Model model, RedirectAttributes ra, HttpServletRequest request) {
+		KhachHang customer = getAuthenticatedCustomer(request);
 		DonHang order = orderService.getOrderDetails(id, customer);
-		order.setTinhTrangDH(TinhTrangDonHang.CANCELLED);
+		order.setTinhTrangDH(TinhTrangDonHang.HUY);
 		TheoDoiDonHang firstDonhang = new TheoDoiDonHang();
 		firstDonhang.setDonhang(order);
-		firstDonhang.setTinhTrangDonHang(TinhTrangDonHang.CANCELLED);
+		firstDonhang.setTinhTrangDonHang(TinhTrangDonHang.HUY);
 		firstDonhang.setThoigian_capnhat(new Date());
-		firstDonhang.setChuThich(TinhTrangDonHang.CANCELLED.getDescription());
+		firstDonhang.setChuThich(TinhTrangDonHang.HUY.getDescription());
 		
 		order.getTheoDoiDH().add(firstDonhang);
 				
@@ -114,5 +106,9 @@ public class DonhangController {
 		
 		return "redirect:/khachhang/donhang";
 	}
+	private KhachHang getAuthenticatedCustomer(HttpServletRequest request) {
+		String email = Tienich.getEmailOfAuthenticatedCustomer(request);				
+		return khachHangService.getCustomerByEmail(email);
+	}	
 	
 }

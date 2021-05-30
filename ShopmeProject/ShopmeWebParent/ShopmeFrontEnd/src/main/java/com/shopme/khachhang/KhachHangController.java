@@ -28,7 +28,6 @@ import com.shopme.common.entity.DatNuoc;
 import com.shopme.common.entity.KhachHang;
 import com.shopme.security.CustomerUserDetails;
 import com.shopme.security.oauth.CustomOAuth2User;
-import com.shopme.security.oauth.CustomerOAuth2UserService;
 
 @Controller
 public class KhachhangController {
@@ -130,7 +129,6 @@ public class KhachhangController {
 		String email = getEmailOfAuthenticatedCustomer(request);
 		KhachHang customer = khachHangService.getCustomerByEmail(email);
 		List<DatNuoc> listCountries = khachHangService.listAllCountries();
-//		
 		model.addAttribute("customer", customer);
 		model.addAttribute("listCountries", listCountries);
 		Object principal = request.getUserPrincipal();
