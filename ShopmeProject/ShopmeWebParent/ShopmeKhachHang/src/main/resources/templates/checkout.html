@@ -17,7 +17,7 @@
 				<div class="card">
 					<div class="card-header"><h5>Thông tin vận chuyển</h5></div>
 					<div class="card-body">
-						<p><b>Vận chuyển tới: </b>[[${diaChiNhanhang}]]<a th:href="@{/diachi(redirect=checkout)}">[Gửi đến một địa chỉ khác]</a></p>
+						<p><b>Vận chuyển tới: </b>[[${diaChiNhanhang}]]<a th:href="@{/khachhang/diachi(redirect=checkout)}">[Gửi đến một địa chỉ khác]</a></p>
 						<p><b>Ngày giao hàng: </b>[[${giaVanchuyen.soNgay}]]</p>
 						<p><b>Ngày giao hàng dự kiến: </b><div th:replace="navigation :: deliver_date(${deliverDate})">Ngày giao hàng</div></p>
 					</div>

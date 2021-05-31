@@ -14,21 +14,16 @@
 		<div class="row m-1">
 			<div class="col-sm-8">
 				<th:block th:each="items, status : ${dsGioHang}">
-					<div class="row border rounded" th:with="sp = ${items.sanpham}" 
-					th:id="'row' + ${status.count}">
+					<div class="row border rounded p-1" th:with="sp = ${items.sanpham}" th:id="'row' + ${status.count}">
 						<div class="col-1">
 							<div class="div-count">[[${status.count}]]</div>
-							<div>
-								<a 
-								class="fas fa-trash icon-dark link-remove" 
-								th:rowNumber = "${status.count}"
-								th:href="@{'/cart/remove/' + ${sp.maSanPham}}">
-							</a>
+							<div class="mt-1">
+								<a class="fas fa-trash icon-dark link-remove" th:rowNumber = "${status.count}"
+									th:href="@{'/cart/remove/' + ${sp.maSanPham}}">
+								</a>
 							</div>
 						</div>
-						<div class="col-3">
-							<img th:src ="@{${sp.duongDanHinhAnhChinh}}" class="img-fluid" />
-						</div>
+						<div class="col-3"><img th:src ="@{${sp.duongDanHinhAnhChinh}}" class="img-fluid" /></div>
 						<div class="col-6">
 							<div>
 								<a th:title ="${sp.ten}" th:href="@{${sp.URI}}" target="_blank">
@@ -38,23 +33,32 @@
 							<div th:replace="quantity_control :: quantity_control(${items.soLuong}, ${items.sanpham.maSanPham})">Số lượng</div>
 							<div>
 								<span>X</span>
-								<span>$[[${sp.giaBan}]]</span>
+								<!-- <span>$[[${sp.giaBan}]]</span> -->
+								<div th:replace="navigation :: discountPrice(${sp.chietKhau})">Giảm giá</div>
+								<span th:if="${sp.chietKhau > 0}">
+									<div th:replace="navigation :: listPrice(${sp.giaBan})">Bảng giá</div>
+								</span>	
 							</div>
 							<div>
-								<span>=&nbsp;</span><span class="h4">$</span>
-								<span th:id="'subtotal' + ${sp.maSanPham}" class="h4 productSubtotal">[[${items.tongTien}]]</span>
+								<span>=&nbsp;</span>
+								<span th:id="'subtotal' + ${sp.maSanPham}" class="h4 productSubtotal">
+									<div th:replace="navigation :: currency_format(${items.tongTien})">[[${items.tongTien}]]</div>
+								</span>
 							</div>
 						</div>
 					</div>
 					<div class="row m-1">&nbsp;</div>
 				</th:block>
 			</div>
-			<div class="col-sm-4" th:unless="${#lists.isEmpty(dsGioHang)}">
+			<div class="col-sm-4" th:unless="${#lists.isEmpty(dsGioHang)}" id="sectionTotal">
 				<div>
 					<span class="h3">Ước tính Tổng</span>
 				</div>
 				<div class="mt-2">
+					<!-- <span class="h2" id="total"></span> -->
+					<span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
 					<span class="h2" id="total"></span>
+					<span th:if="${CURRENCY_SYMBOL_POSITION == 'After price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
 				</div>
 				<div class="mt-2">
 					<th:block th:if="${giaVanchuyen != null}">
@@ -64,13 +68,13 @@
 					</th:block>
 					<th:block th:unless="${giaVanchuyen != null}">
 						<span class="h5 text-warning">Không có người vận chuyển cho vị trí này</span>
-						<a th:href="@{/}">Chỉnh sửa vị trí của bạn</a><br/>
-						<a th:href="@{/}">Sử dụng địa chỉ giao hàng khác</a>
+						<a th:href="@{/khachhang(redirect=checkout)}">Chỉnh sửa vị trí của bạn</a><br/>
+						<a th:href="@{/khachhang/diachi(redirect=checkout)}">Sử dụng địa chỉ giao hàng khác</a>
 					</th:block>
 				</div>
 			</div>
 		</div>
-		<div th:if="${#lists.isEmpty(dsGioHang)}">
+		<div th:if="${#lists.isEmpty(dsGioHang)}" id="sectionEmptyCart">
 			<h3>Bạn vẫn chưa chọn được sản phẩm nào</h3>
 		</div>
 		<div th:replace="navigation :: standard_modal"></div>
@@ -81,6 +85,7 @@
 	var crsfHeaderName = "[[${_csrf.headerName}]]";
 	var csrfValue = "[[${_csrf.token}]]";
 </script>
+<script th:src="@{/js/jquery.number.min.js}"></script>
 <script th:src="@{/js/shopping_cart.js}"></script>
 </body>
 </html>

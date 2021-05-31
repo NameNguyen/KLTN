@@ -97,7 +97,7 @@ public class GiaVanChuyenController {
 			model.addAttribute("rate", rate);
 			model.addAttribute("pageTitle", "Chỉnh sửa phí vận chuyển (ID: " + id + ")");
 			
-			return "shipping/vanchuyen_form";
+			return "vanchuyen/vanchuyen_form";
 		} catch (GiaVanChuyenNotFoundException ex) {
 			ra.addFlashAttribute("message", ex.getMessage());
 			return "redirect:/vanchuyen";

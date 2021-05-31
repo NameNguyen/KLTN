@@ -59,7 +59,7 @@
 					<td>
 						<a class="fas fa-edit fa-2x icon-green" th:href="@{'/vanchuyen/edit/' + ${rate.ma}}" title="Chỉnh sửa phí vận chuyển này"></a> 
 						&nbsp;&nbsp;&nbsp;
-						<a class="fas fa-trash fa-2x icon-dark small-link" th:href="@{/show_delete_modal(type=shipping,keyField=${rate.datNuoc.ten},id=${rate.ma})}" title="Xóa phí vận chuyển này"></a>
+						<a class="fas fa-trash fa-2x icon-dark small-link" th:href="@{/show_delete_modal(type=vanchuyen,keyField=${rate.datNuoc.ten},id=${rate.ma})}" title="Xóa phí vận chuyển này"></a>
 					</td>
 				</tr>
 			</tbody>

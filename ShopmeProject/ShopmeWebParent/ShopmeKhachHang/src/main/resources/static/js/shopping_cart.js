@@ -110,16 +110,16 @@ function updateTotal() {
 		
 	});
 
-	$("#total").text("$" + total);
-	// if (total == 0.0) {
-	// 	hideSectionTotal();
-	// } else {
-	// 	formattedTotal = $.number(total, 2);
-	// 	$("#total").text("$" +formattedTotal);
-	// }
+	//$("#total").text("$" + total);
+	 if (total == 0.0) {
+		hideSectionTotal();
+	} else {
+		formattedTotal = $.number(total, 2);
+		$("#total").text(formattedTotal);
+	}
 }
 
-// function hideSectionTotal() {
-// 	$("#sectionTotal").hide();
-// 	$("#sectionEmptyCart").removeClass("d-none");
-// }
+function hideSectionTotal() {
+ 	$("#sectionTotal").hide();
+ 	$("#sectionEmptyCart").removeClass("d-none");
+ }
