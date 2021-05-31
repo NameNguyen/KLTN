@@ -10,20 +10,20 @@
 
 	<div class="row text-center">
 		<th:block th:each="cat : ${category.danhMuccon}">
-		<div class="col" th:if="${cat.trangThai == true}">
-		<a th:href="@{'/c/' + ${cat.biDanh}}">
-			<img th:src="@{${cat.duongDanHinhAnh}}" height="100" />
-			<br/>
-			<b>[[${cat.ten}]]</b>
-		</a>
-		</div>
+			<div class="col-4 d-flex" th:if="${cat.trangThai == true}">
+				<a th:href="@{'/c/' + ${cat.biDanh}}">
+					<img th:src="@{${cat.duongDanHinhAnh}}" height="100" />
+					<br/>
+					<b>[[${cat.ten}]]</b>
+				</a>
+			</div>
 		</th:block>
 	</div>
 
 	<div class="row">&nbsp;</div>
 	<div class="row">
 		<th:block th:each="product : ${listProducts}">
-		<div th:replace="sanpham/sanpham_fragment :: content"></div>
+			<div th:replace="sanpham/sanpham_fragment :: content"></div>
 		</th:block>
 	</div>
 

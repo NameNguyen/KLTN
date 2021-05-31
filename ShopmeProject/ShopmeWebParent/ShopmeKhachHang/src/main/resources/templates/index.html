@@ -14,7 +14,7 @@
 		<div class="col-sm-2" th:each="cat : ${listCategories}">
 			<div><img th:src="@{${cat.duongDanHinhAnh}}" width="80" /></div>
 			<div>
-				<a th:href="@{'/c/' + ${cat.biDanh}}">[[${cat.ten}]]</a>
+				<a th:href="@{'/c/' + ${cat.biDanh}}" style="text-decoration: none;">[[${cat.ten}]]</a>
 			</div>
 		</div>
 		
