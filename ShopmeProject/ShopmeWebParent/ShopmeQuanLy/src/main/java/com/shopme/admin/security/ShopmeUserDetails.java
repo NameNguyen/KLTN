@@ -80,5 +80,8 @@ public class ShopmeUserDetails implements UserDetails {
 	public boolean hasPhanQuyen(String roleName) {
 		return user.hasPhanQuyen(roleName);
 	}
-
+	public TaiKhoan getUser() {
+		return this.user;
+	}
+	
 }

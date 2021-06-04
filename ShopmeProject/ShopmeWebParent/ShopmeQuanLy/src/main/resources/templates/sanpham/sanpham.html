@@ -9,7 +9,7 @@
 		<h2>Quản lý sản phẩm</h2>	
 		
 		<th:block sec:authorize="hasAnyAuthority('Quản trị viên', 'Người chỉnh sửa nội dung')">
-		<a th:href="@{/sanpham/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
+		<a style="text-decoration: none;" th:href="@{/sanpham/new}" class="fas fa-folder-plus fa-2x icon-dark mr-2"></a>
 		<a th:href="@{/sanpham/export/csv}" class="fas fa-file-csv fa-2x icon-dark mr-2"></a>
 		</th:block>
 	</div>
@@ -79,7 +79,7 @@
 						<img th:src="@{${product.duongDanHinhAnhChinh}}" style="width: 120px" class="img-fluid" />
 					</td>
 					<td>
-						<a class="link-detail"
+						<a style="text-decoration: none;" class="link-detail"
 							th:href="@{'/sanpham/detail/' + ${product.maSanPham}}"
 							th:title="${product.ten}"
 							>[[${product.tenNgan}]]</a>					
@@ -95,20 +95,20 @@
 					</th:block>
 					
 					<td>
-						<a class="fas fa-file-alt fa-2x icon-green link-detail"
+						<a style="text-decoration: none;" class="fas fa-file-alt fa-2x icon-green link-detail"
 							th:href="@{'/sanpham/detail/' + ${product.maSanPham}}"
-							title="View details of this product"
+							title="Xem chi tiết của sản phẩm này"
 							></a>
 							
 						<th:block sec:authorize="hasAnyAuthority('Quản trị viên', 'Người chỉnh sửa nội dung', 'Nhân viên bán hàng')">
 						&nbsp; 	
-						<div th:replace="fragments :: edit('sanpham', '/sanpham/edit/' + ${product.maSanPham})" />
+						<div th:replace="fragments :: edit('Sản phẩm', '/sanpham/edit/' + ${product.maSanPham})" />
 						</th:block>
 						
 						<th:block sec:authorize="hasAnyAuthority('Quản trị viên', 'Người chỉnh sửa nội dung')">
 						&nbsp; 
 						
-						<div th:replace="fragments :: delete('sanpham', ${product.maSanPham}, '/sanpham/delete/' + ${product.maSanPham}, true)" />						
+						<div th:replace="fragments :: delete('Sản phẩm', ${product.maSanPham}, '/sanpham/delete/' + ${product.maSanPham}, true)" />						
 						</th:block>
 					</td>					
 				</tr>
@@ -123,21 +123,21 @@
 			</div>
 			<div class="col-8">
 				<div>
-					<a class="link-detail" th:href="@{'/sanpham/detail/' + ${product.maSanPham}}">[[${product.tenNgan}]]</a>				
+					<a style="text-decoration: none;" class="link-detail" th:href="@{'/sanpham/detail/' + ${product.maSanPham}}">[[${product.tenNgan}]]</a>				
 				</div>
 				<div class="mt-2">
-					<a class="fas fa-file-alt fa-2x icon-green link-detail"
+					<a style="text-decoration: none;" class="fas fa-file-alt fa-2x icon-green link-detail"
 						th:href="@{'/sanpham/detail/' + ${product.maSanPham}}"
 						></a>
 
 					<th:block sec:authorize="hasAnyAuthority('Quản trị viên', 'Người chỉnh sửa nội dung', 'Nhân viên bán hàng')">
 					&nbsp; 	
-					<div th:replace="fragments :: edit('sanpham', '/sanpham/edit/' + ${product.maSanPham})" />
+					<div th:replace="fragments :: edit('Sản phẩm', '/sanpham/edit/' + ${product.maSanPham})" />
 					</th:block>
 
 					<th:block sec:authorize="hasAnyAuthority('Quản trị viên', 'Người chỉnh sửa nội dung')">
 					&nbsp; 
-					<div th:replace="fragments :: delete('sanpham', ${product.maSanPham}, '/sanpham/delete/' + ${product.maSanPham}, true)" />
+					<div th:replace="fragments :: delete('Sản phẩm', ${product.maSanPham}, '/sanpham/delete/' + ${product.maSanPham}, true)" />
 					</th:block>		
 				</div>
 			</div>

@@ -10,7 +10,7 @@
 
 	<div class="row text-center">
 		<th:block th:each="cat : ${category.danhMuccon}">
-			<div class="col-4 d-flex" th:if="${cat.trangThai == true}">
+			<div class="col" th:if="${cat.trangThai == true}">
 				<a th:href="@{'/c/' + ${cat.biDanh}}">
 					<img th:src="@{${cat.duongDanHinhAnh}}" height="100" />
 					<br/>
@@ -27,7 +27,7 @@
 		</th:block>
 	</div>
 
-	<div th:replace="fragments :: pagination('/c/' + ${category.biDanh}, 'sanpham')"></div>
+	<div th:replace="fragments :: pagination('/c/' + ${category.biDanh}, 'Sản phẩm')"></div>
 
 	<div th:replace="navigation :: footer_menu"></div>
 </div>	

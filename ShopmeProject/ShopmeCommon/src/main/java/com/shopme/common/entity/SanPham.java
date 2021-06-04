@@ -34,10 +34,10 @@ public class SanPham {
 	@Column(unique = true, length = 256, nullable = false)
 	private String biDanh;
 	
-	@Column(length = 512, nullable = false, name = "mota_ngan")
+	@Column(length = 4096, nullable = false, name = "mota_ngan")
 	private String moTaNgan;
 	
-	@Column(length = 4096, nullable = false, name = "mota_daydu")
+	@Column(length = 10000, nullable = false, name = "mota_daydu")
 	private String moTaDayDu;
 	
 	@Column(name = "thoigian_tao")
@@ -65,7 +65,6 @@ public class SanPham {
 	
 	@Column(name = "hinh_anh_chinh", nullable = false)
 	private String hinhAnhChinh;
-
 	
 	@ManyToOne
 	@JoinColumn(name = "danhmuc_id")

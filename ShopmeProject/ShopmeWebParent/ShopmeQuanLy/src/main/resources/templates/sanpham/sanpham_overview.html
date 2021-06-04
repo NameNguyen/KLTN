@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html  xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
+
 <body>
-<div th:fragment="content" th:remove="tag">
-	<div class="form-group row">
-		<label class="col-sm-2 col-form-label">Tên sản phẩm:</label>
-		<div class="col-sm-10">
-			<input type="text" class="form-control" th:field="*{ten}"
-				th:readonly="${#authorization.expression('hasAuthority(''Nhân viên bán hàng'')')}" 
+	<div th:fragment="content" th:remove="tag">
+		<div class="form-group row">
+			<label class="col-sm-2 col-form-label">Tên sản phẩm:</label>
+			<div class="col-sm-10">
+				<input type="text" class="form-control" th:field="*{ten}" th:readonly="${#authorization.expression('hasAuthority(''Nhân viên bán hàng'')')}" 
 				required minlength="3" maxlength="256"  />
 		</div>
 	</div>
@@ -15,7 +15,7 @@
 		<label class="col-sm-2 col-form-label">Bí danh:</label>
 		<div class="col-sm-10">
 			<input type="text" class="form-control" th:field="*{biDanh}"
-				placeholder="Default is product name (spaces are replaced by dashes)"
+				placeholder="Mặc định là tên sản phẩm (khoảng trắng được thay thế bằng dấu gạch ngang)"
 				th:readonly="${#authorization.expression('hasAuthority(''Nhân viên bán hàng'')')}"  
 				minlength="3" maxlength="256"  />
 		</div>

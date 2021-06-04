@@ -41,7 +41,7 @@
 				<select class="form-control" th:field="*{danhmuc}" multiple required
 						style="resize: vertical; height: 200px">
 					<th:block th:each="cat : ${listCategories}">
-					<option th:value="${cat.maDanhMuc}">[[${cat.ten}]]</option>
+						<option th:value="${cat.maDanhMuc}" th:text="${cat.ten}">[[${cat.ten}]]</option>
 					</th:block>
 
 				</select>
@@ -59,8 +59,8 @@
 		</div>
 
 		<div class="text-center">
-			<input type="submit" value="Save" class="btn btn-primary m-3" />
-			<input type="button" value="Cancel" class="btn btn-secondary" id="buttonCancel" />
+			<input type="submit" value="Lưu" class="btn btn-primary m-3" />
+			<input type="button" value="Hủy" class="btn btn-secondary" id="buttonCancel" />
 		</div>
 	</div>
 	</form>
@@ -96,7 +96,6 @@
 		});
 
 	}
-	
 	function checkUnique(form) {
 		brandId = $("#maNhanHieu").val();
 		brandName = $("#ten").val();

@@ -42,4 +42,7 @@ public class CaidatService {
 	public List<CaiDat> getCurrencySettings() {
 		return caiDatRepo.findBytheLoai(TheloaiCaiDat.CURRENCY);
 	}
+	public List<CaiDat> getPaymentSettings() {
+		return caiDatRepo.findBytheLoai(TheloaiCaiDat.PAYMENT);
+	}	
 }

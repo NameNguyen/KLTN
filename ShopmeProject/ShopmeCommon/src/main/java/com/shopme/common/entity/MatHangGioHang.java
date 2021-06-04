@@ -93,7 +93,7 @@ public class MatHangGioHang {
 	
 	@Transient
 	public float getTongTien() {
-		return this.sanpham.getGiaBan()*soLuong;
+		return sanpham.getGiamGia()*soLuong;
 	}
 	
 }

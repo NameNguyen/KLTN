@@ -58,18 +58,18 @@
 	<div th:fragment="status(trangThai, entityName, entityURL)" th:remove="tag">
 		<a th:if="${trangThai == true}" class="fas fa-check-circle fa-2x icon-green" 
 			th:href="@{${entityURL} + '/trangThai/false'}"
-			th:title="'Disable this ' + ${entityName}"
+			th:title="'Hủy Kích hoạt ' + ${entityName}"
 			></a>
 			
 		<a th:if="${trangThai == false}" class="fas fa-circle fa-2x icon-dark" 
 			th:href="@{${entityURL} + '/trangThai/true'}"
-			th:title="'Enable this ' + ${entityName}"
+			th:title="'Kích hoạt ' + ${entityName}"
 			></a>	
 	</div>
 	
 	<div th:fragment="edit(entityName, editURL)" th:remove="tag">
 		<a class="fas fa-edit fa-2x icon-green" th:href="@{${editURL}}"
-			th:title="'Edit this ' + ${entityName}"></a>
+			th:title="'Chỉnh sửa ' + ${entityName}"></a>
 	</div>
 	<div th:fragment="currency_format(amount)" th:remove="tag">
 		<span th:if="${CURRENCY_SYMBOL_POSITION == 'Before price'}" th:remove="tag">[[${CURRENCY_SYMBOL}]]</span>
@@ -93,7 +93,7 @@
 		<a class="fas fa-trash fa-2x icon-dark link-delete" 
 			th:href="@{${deleteURL}}"
 			th:entityId="${entityId}"
-			th:title="'Delete this ' + ${entityName}"></a>
+			th:title="'Xóa ' + ${entityName}"></a>
 		</th:block>	
 	</div>
 	

@@ -1,3 +1,5 @@
+decimalSeparator = decimalPointType == 'COMMA' ? ',' : '.';
+thousandsSeparator = thousandsPointType == 'COMMA' ? ',' : '.'; 
 $(document).ready(function() {	
 	$(".link-remove").on("click", function(e) {
 		e.preventDefault();
@@ -98,24 +100,24 @@ function updateQuantity(productId, quantity) {
 
 function updateSubtotal(newSubtotal	, productId) {
 	// formattedSubtotal = $.number(newSubtotal, 2);
-	
-	$("#subtotal" + productId).text(newSubtotal);
+	$("#subtotal" + productId).text(formatCurrency(newSubtotal));
+	//$("#subtotal" + productId).text(newSubtotal);
 }
 
 function updateTotal() {
 	total = 0.0;
+	productCount = 0;
 
 	$(".productSubtotal").each(function(index, element) {
-		total = total + parseFloat(element.innerHTML);
-		
+		productCount++;
+		total += parseFloat(clearCurrencyFormat(element.innerHTML));
 	});
 
-	//$("#total").text("$" + total);
-	 if (total == 0.0) {
+	 if (productCount < 1) {
 		hideSectionTotal();
 	} else {
-		formattedTotal = $.number(total, 2);
-		$("#total").text(formattedTotal);
+		//formattedTotal = $.number(total, 2);
+		$("#total").text(formatCurrency(total));
 	}
 }
 
@@ -123,3 +125,11 @@ function hideSectionTotal() {
  	$("#sectionTotal").hide();
  	$("#sectionEmptyCart").removeClass("d-none");
  }
+ function formatCurrency(amount) {
+	return $.number(amount, decimalDigits, decimalSeparator, thousandsSeparator);
+}
+
+function clearCurrencyFormat(numberString) {
+	result = numberString.replaceAll(thousandsSeparator, "");
+	return result.replaceAll(decimalSeparator, ".");
+}

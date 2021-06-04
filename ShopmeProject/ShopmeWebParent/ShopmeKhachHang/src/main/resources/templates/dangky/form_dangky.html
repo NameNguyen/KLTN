@@ -3,7 +3,8 @@
 <head th:replace="fragments :: page_head(${pageTitle}, 'none')" />
 <body>
 <div class="container-fluid text-center">
-		
+	 <div th:replace="navigation :: header_menu"></div>
+	<div th:replace="navigation :: search_nav"></div>
 	<div class="text-center">
 		<h2>Khách hàng đăng ký</h2>
 	</div>
@@ -126,8 +127,7 @@
 	</form>
 	
 	<div>&nbsp;</div>
-	<div th:replace="fragments :: modal_dialog"></div>
-	<div th:replace="navigation :: footer_menu"></div>
+	 <div th:replace="navigation :: footer">Static footer</div>
 </div>
 <script type="text/javascript">
 	contextPath = "[[@{/}]]";

@@ -1,5 +1,9 @@
 package com.shopme.sanpham;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -11,8 +15,8 @@ import com.shopme.common.exception.SanPhamNotFoundException;
 
 @Service
 public class SanPhamService {
-	public static final int PRODUCTS_PER_PAGE = 10;
-	public static final int SEARCH_RESULTS_PER_PAGE = 10;
+	public static final int PRODUCTS_PER_PAGE = 12;
+	public static final int SEARCH_RESULTS_PER_PAGE = 12;
 	
 	@Autowired private SanPhamRepository repo;
 
@@ -32,7 +36,13 @@ public class SanPhamService {
 
 		return product;
 	}
-	
+	public SanPham get(Integer id) throws SanPhamNotFoundException {
+		try {
+			return repo.findById(id).get();
+		} catch (NoSuchElementException ex) {
+			throw new SanPhamNotFoundException("Không thể tìm thấy bất kỳ sản phẩm nào có ID " + id);
+		}
+	}
 	public Page<SanPham> search(String keyword, int pageNum) {
 		Pageable pageable = PageRequest.of(pageNum - 1, SEARCH_RESULTS_PER_PAGE);
 		return repo.search(keyword, pageable);

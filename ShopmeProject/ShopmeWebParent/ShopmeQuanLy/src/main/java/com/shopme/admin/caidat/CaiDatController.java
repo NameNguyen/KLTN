@@ -103,4 +103,25 @@ public class CaiDatController {
 		
 		return "redirect:/caidat";
 	}	
+	@PostMapping("/caidat/save_payment")
+	public String savePayment(HttpServletRequest request, RedirectAttributes ra) throws IOException {
+		List<CaiDat> paymentSettings = caidatService.getPaymentSettings();
+		
+		updateSettings(paymentSettings, request);
+		
+		ra.addFlashAttribute("message", "Cài đặt thanh toán đã được lưu.");
+		
+		return "redirect:/caidat";
+	}	
+	
+	private void updateSettings(List<CaiDat> listSettings, HttpServletRequest request) {
+		for (CaiDat setting : listSettings) {
+			String value = request.getParameter(setting.getTuKhoa());
+			if (value != null) {
+				setting.setGiaTri(value);
+			}			
+		}	
+		
+		caidatService.saveAll(listSettings);		
+	}
 }
