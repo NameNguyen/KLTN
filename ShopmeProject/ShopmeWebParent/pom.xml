@@ -21,8 +21,8 @@
 	</properties>
 
 	<modules>
-		<module>ShopmeBackend</module>
-		<module>ShopmeFrontEnd</module>
+		<module>ShopmeQuanLy</module>
+		<module>ShopmeKhachHang</module>
 	</modules>
 
 	<dependencies>

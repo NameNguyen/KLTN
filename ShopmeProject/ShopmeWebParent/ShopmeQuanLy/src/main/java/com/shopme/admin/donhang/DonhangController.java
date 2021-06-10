@@ -1,5 +1,6 @@
 package com.shopme.admin.donhang;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.shopme.admin.caidat.CaidatService;
-import com.shopme.admin.khachhang.KhachhangNotFoundException;
 import com.shopme.admin.sanpham.SanPhamService;
 import com.shopme.common.entity.CaiDat;
 import com.shopme.common.entity.ChiTietDonHang;
@@ -326,5 +326,12 @@ public class DonhangController {
 			
 			orderTracks.add(aTrack);
 		}
+	}
+	@GetMapping("/donhang/export/excel")
+	public void xuatFileExcel(HttpServletResponse response) throws IOException {
+		List<DonHang> listUsers = orderService.listAll();
+		
+		DonHangExcelExporter exporter = new DonHangExcelExporter();
+		exporter.export(listUsers, response);
 	}
 }

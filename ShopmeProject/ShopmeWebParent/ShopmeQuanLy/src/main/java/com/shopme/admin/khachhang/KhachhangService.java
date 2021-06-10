@@ -52,14 +52,14 @@ public class KhachhangService {
 		try {
 			return customerRepo.findById(id).get();
 		} catch (NoSuchElementException ex) {
-			throw new KhachhangNotFoundException("Could not find any customers with ID " + id);
+			throw new KhachhangNotFoundException("Không thể tìm thấy bất kỳ khách hàng nào có ID " + id);
 		}
 	}
 	
 	public void delete(Integer id) throws KhachhangNotFoundException {
 		Long count = customerRepo.countBymaKhachHang(id);
 		if (count == null || count == 0) {
-			throw new KhachhangNotFoundException("Could not find any customers with ID " + id);
+			throw new KhachhangNotFoundException("Không thể tìm thấy bất kỳ khách hàng nào có ID " + id);
 		}
 		
 		customerRepo.deleteById(id);

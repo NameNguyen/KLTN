@@ -306,7 +306,23 @@ public class DonHang {
 		this.soDienThoai = diaChi.getSdt();
 		this.maBuuDien = diaChi.getMaBuudien();
 	}
-	
+		
+	@Transient
+	public String getNgaytao() {
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+		String date = simpleDateFormat.format(thoiGianDatHang);
+		return date;
+	}
+	@Transient
+	public String getNgayGiao() {
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+		String date = simpleDateFormat.format(ngayGiaoHang);
+		return date;
+	}
 	@Transient
 	public String getDestination() {
 		String diemDen = thanhPho;

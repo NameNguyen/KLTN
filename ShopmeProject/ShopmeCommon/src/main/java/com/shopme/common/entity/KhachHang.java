@@ -1,5 +1,6 @@
 package com.shopme.common.entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -250,6 +251,14 @@ public class KhachHang {
 		this.resetPasswordToken = resetPasswordToken;
 	}
 
+	@Transient
+	public String getNgaytao() {
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+		String date = simpleDateFormat.format(thoiGianTao);
+		return date;
+	}
 	@Transient
 	public String getDiachi() {
 		

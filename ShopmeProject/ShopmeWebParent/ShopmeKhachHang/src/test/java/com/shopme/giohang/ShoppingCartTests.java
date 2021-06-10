@@ -22,7 +22,7 @@ import com.shopme.common.entity.SanPham;
 @Rollback(false)
 public class ShoppingCartTests {
 
-	@Autowired private MatHangGioHangReponsitory cartRepo;
+	@Autowired private CartItemReponsitory cartRepo;
 	
 	@Autowired private TestEntityManager entityManager;
 	

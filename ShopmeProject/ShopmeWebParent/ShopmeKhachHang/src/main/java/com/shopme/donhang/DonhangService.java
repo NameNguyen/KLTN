@@ -23,7 +23,7 @@ import com.shopme.common.entity.PhuongThucThanhToan;
 import com.shopme.common.entity.SanPham;
 import com.shopme.common.entity.TheoDoiDonHang;
 import com.shopme.common.entity.TinhTrangDonHang;
-import com.shopme.giohang.MatHangGioHangReponsitory;
+import com.shopme.giohang.CartItemReponsitory;
 
 @Service
 @Transactional
@@ -32,7 +32,7 @@ public class DonhangService  {
 
 	@Autowired private DonhangReponsitory donHangRepo;
 	
-	@Autowired private MatHangGioHangReponsitory cartRepo;
+	@Autowired private CartItemReponsitory cartRepo;
 	
 	
 	public DonHang datHang(KhachHang khachHang, DiaChi diaChi, List<MatHangGioHang> dsGiohang,

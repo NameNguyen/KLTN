@@ -12,7 +12,7 @@ import com.shopme.common.entity.MatHangGioHang;
 import com.shopme.common.entity.SanPham;
 
 @Repository
-public interface MatHangGioHangReponsitory extends JpaRepository<MatHangGioHang, Integer> {
+public interface CartItemReponsitory extends JpaRepository<MatHangGioHang, Integer> {
 
 	public List<MatHangGioHang> findByKhachhang(KhachHang khachHang);
 

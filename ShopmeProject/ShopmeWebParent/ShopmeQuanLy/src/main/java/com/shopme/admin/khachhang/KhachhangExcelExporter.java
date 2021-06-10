@@ -1,4 +1,4 @@
-package com.shopme.admin.nguoidung.export;
+package com.shopme.admin.khachhang;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,18 +15,18 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.shopme.admin.AbstractExporter;
-import com.shopme.common.entity.TaiKhoan;
+import com.shopme.common.entity.KhachHang;
 
-public class NguoiDungExcelExporter extends AbstractExporter{
+public class KhachhangExcelExporter extends AbstractExporter{
 	private XSSFWorkbook workbook;
 	private XSSFSheet sheet;
 	
-	public NguoiDungExcelExporter() {
+	public KhachhangExcelExporter() {
 		workbook = new XSSFWorkbook();
 	}
 	
 	private void writeHeaderLine() {
-		sheet = workbook.createSheet("TaiKhoan");
+		sheet = workbook.createSheet("KhachHang");
 		XSSFRow row = sheet.createRow(0);
 		
 		
@@ -36,11 +36,11 @@ public class NguoiDungExcelExporter extends AbstractExporter{
 		font.setFontHeight(16);
 		cellStyle.setFont(font);
 		
-		createCell(row, 0, "Mã Tài khoản", cellStyle);
+		createCell(row, 0, "Mã Khách hàng", cellStyle);
 		createCell(row, 1, "E-mail", cellStyle);
 		createCell(row, 2, "Họ", cellStyle);
 		createCell(row, 3, "Tên", cellStyle);
-		createCell(row, 4, "Chức vụ", cellStyle);
+		createCell(row, 4, "Thời gian tạo", cellStyle);
 		createCell(row, 5, "Trạng thái", cellStyle);
 	}
 	
@@ -59,11 +59,11 @@ public class NguoiDungExcelExporter extends AbstractExporter{
 		cell.setCellStyle(style);
 	}
 	
-	public void export(List<TaiKhoan> listUsers, HttpServletResponse response) throws IOException {
-		super.setResponseHeader(response, "application/octet-stream", ".xlsx", "nguoidung_");
+	public void export(List<KhachHang> listKhachhang, HttpServletResponse response) throws IOException {
+		super.setResponseHeader(response, "application/octet-stream", ".xlsx", "khachhang_");
 	
 		writeHeaderLine();
-		writeDataLines(listUsers);
+		writeDataLines(listKhachhang);
 		
 		ServletOutputStream outputStream = response.getOutputStream();
 		workbook.write(outputStream);
@@ -72,7 +72,7 @@ public class NguoiDungExcelExporter extends AbstractExporter{
 		
 	}
 
-	private void writeDataLines(List<TaiKhoan> listUsers) {
+	private void writeDataLines(List<KhachHang> listKhachhang) {
 		int rowIndex = 1;
 		
 		XSSFCellStyle cellStyle = workbook.createCellStyle();
@@ -80,16 +80,16 @@ public class NguoiDungExcelExporter extends AbstractExporter{
 		font.setFontHeight(14);
 		cellStyle.setFont(font);
 		
-		for (TaiKhoan user : listUsers) {
+		for (KhachHang kh : listKhachhang) {
 			XSSFRow row = sheet.createRow(rowIndex++);
 			int columnIndex = 0;
 			
-			createCell(row, columnIndex++, user.getMaTK(), cellStyle);
-			createCell(row, columnIndex++, user.getEmail(), cellStyle);
-			createCell(row, columnIndex++, user.getHo(), cellStyle);
-			createCell(row, columnIndex++, user.getTen(), cellStyle);
-			createCell(row, columnIndex++, user.getPhanquyen().toString(), cellStyle);
-			createCell(row, columnIndex++, user.isTrangThai(), cellStyle);
+			createCell(row, columnIndex++, kh.getMaKhachHang(), cellStyle);
+			createCell(row, columnIndex++, kh.getEmail(), cellStyle);
+			createCell(row, columnIndex++, kh.getHo(), cellStyle);
+			createCell(row, columnIndex++, kh.getTen(), cellStyle);
+			createCell(row, columnIndex++, kh.getNgaytao(), cellStyle);
+			createCell(row, columnIndex++, kh.isTrangThai(), cellStyle);
 			
 			
 		}

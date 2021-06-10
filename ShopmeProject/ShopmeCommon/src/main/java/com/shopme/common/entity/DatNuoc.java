@@ -98,15 +98,15 @@ public class DatNuoc {
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "DatNuoc [maDatnuoc=" + maDatnuoc + ", ten=" + ten + ", maVung=" + maVung + "]";
-	}
-
 //	@Override
 //	public String toString() {
-//		return ten;
+//		return "DatNuoc [maDatnuoc=" + maDatnuoc + ", ten=" + ten + ", maVung=" + maVung + "]";
 //	}
+
+	@Override
+	public String toString() {
+		return ten;
+	}
 	
 
 }

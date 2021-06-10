@@ -44,11 +44,11 @@ import com.shopme.payment.config.PaypalPaymentMethod;
 import com.shopme.payment.config.PaypalService;
 
 @Controller
-public class GioHangController {
+public class ShoppingCartController {
 	public static final String URL_PAYPAL_SUCCESS = "paypal/pay_success";
 	public static final String URL_PAYPAL_CANCEL = "paypal/pay_faild";
 
-	@Autowired private GioHangService cartService;
+	@Autowired private ShoppingCartService cartService;
 	
 	@Autowired private KhachHangService khachHangService;
 	

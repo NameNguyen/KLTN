@@ -143,7 +143,7 @@ public class KhachhangController {
 		
 		return "redirect:/khachhang";
 	}
-	@GetMapping("/khachhang/export")
+	@GetMapping("/khachhang/export/csv")
 	public void exportToCSV(HttpServletResponse response) throws IOException {
 		response.setContentType("text/csv");
 		DateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd_HH:mm:ss");
@@ -166,5 +166,12 @@ public class KhachhangController {
 		}
 		
 		csvWriter.close();
+	}
+	@GetMapping("/khachhang/export/excel")
+	public void xuatFileExcel(HttpServletResponse response) throws IOException {
+		List<KhachHang> listUsers = service.listAll();
+		
+		KhachhangExcelExporter exporter = new KhachhangExcelExporter();
+		exporter.export(listUsers, response);
 	}
 }

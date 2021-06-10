@@ -1,5 +1,6 @@
 package com.shopme.admin.donhang;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.shopme.common.entity.DonHang;
+import com.shopme.common.entity.KhachHang;
 
 @Service
 public class DonhangService {
@@ -18,6 +20,11 @@ public class DonhangService {
 	
 	@Autowired
 	private DonhangReponsitory repo;
+	
+	public List<DonHang> listAll() {
+		return repo.findAll(Sort.by("ho").ascending());
+	}
+	
 	public Page<DonHang> listAll(int pageNum, String sortField, String sortDir, String keyword) {
 		Sort sort = Sort.by(sortField);
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();

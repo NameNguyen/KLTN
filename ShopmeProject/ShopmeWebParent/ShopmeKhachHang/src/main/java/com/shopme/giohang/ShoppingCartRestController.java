@@ -11,10 +11,10 @@ import com.shopme.khachhang.KhachHangService;
 import com.shopme.security.CustomerUserDetails;
 
 @RestController
-public class GioHangRestController {
+public class ShoppingCartRestController {
 
 	@Autowired
-	private GioHangService cartService;
+	private ShoppingCartService cartService;
 	
 	@Autowired
 	private KhachHangService khachHangService;
