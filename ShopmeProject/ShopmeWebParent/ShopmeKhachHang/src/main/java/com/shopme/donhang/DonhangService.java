@@ -87,7 +87,6 @@ public class DonhangService  {
 		donHang.getTheoDoiDH().add(firstDonhang);
 		
 		if (phuongThucThanhToan.equals(PhuongThucThanhToan.PAYPAL)) {
-			
 			TheoDoiDonHang theoDoiDonHang = new TheoDoiDonHang();
 			theoDoiDonHang.setDonhang(donHang);
 			theoDoiDonHang.setTinhTrangDonHang(TinhTrangDonHang.THANH_TOAN);

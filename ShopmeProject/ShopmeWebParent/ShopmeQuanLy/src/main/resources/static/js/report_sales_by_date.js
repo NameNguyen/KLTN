@@ -18,10 +18,10 @@ function loadReportSalesByDate(period) {
 	url = contextPath + "baocao/sales_by_date/" + period;
 
 	var data = new google.visualization.DataTable();
-	data.addColumn('string', 'Date');
-	data.addColumn('number', 'Gross Sales');
-	data.addColumn('number', 'Net Sales');
-	data.addColumn('number', 'Orders');
+	data.addColumn('string', 'Ngày');
+	data.addColumn('number', 'Tổng doanh thu');
+	data.addColumn('number', 'Mạng lưới bán hàng');
+	data.addColumn('number', 'Đơn hàng');
 	
 	totalGrossSales = 0.0;
 	totalNetSales = 0.0;
@@ -30,10 +30,10 @@ function loadReportSalesByDate(period) {
 	$.get(url, function(reportJson) {
 
 		$.each(reportJson, function(index, reportItem) {
-			data.addRows([[reportItem.identifier, reportItem.grossSales, reportItem.netSales, reportItem.ordersCount]]);
-			totalGrossSales += parseFloat(reportItem.grossSales);
-			totalNetSales += parseFloat(reportItem.netSales);
-			totalOrders += parseInt(reportItem.ordersCount);
+			data.addRows([[reportItem.dinhDanh, reportItem.tongDoanhThu, reportItem.mangLuoiBanhang, reportItem.soLuongDonhang]]);
+			totalGrossSales += parseFloat(reportItem.tongDoanhThu);
+			totalNetSales += parseFloat(reportItem.mangLuoiBanhang);
+			totalOrders += parseInt(reportItem.soLuongDonhang);
 		});		
 		
 		var options = {
@@ -47,13 +47,13 @@ function loadReportSalesByDate(period) {
 	          },
 	          vAxes: {
 	            // Adds titles to each axis.
-	            0: {title: 'Sales Amount', format: 'currency'},
-	            1: {title: 'Number of Orders'}
+	            0: {title: 'Sản lượng bán ra', currency : 'currency'},
+	            1: {title: 'Số lượng đơn đặt hàng'}
 	          }		
 		};
 		
 	    var formatter = new google.visualization.NumberFormat({
-	    	prefix: '$'
+	    	prefix: 'đ',
 	    });
 	    formatter.format(data, 1);
 	    formatter.format(data, 2);
@@ -61,11 +61,11 @@ function loadReportSalesByDate(period) {
 		var salesChart = new google.visualization.ColumnChart(document.getElementById('chart_sales_by_date'));
 		salesChart.draw(data, options);	
 		
-		$("#textTotalGrossSales1").text("$" + $.number(totalGrossSales, 2));
-		$("#textTotalNetSales1").text("$" + $.number(totalNetSales, 2));
+		$("#textTotalGrossSales1").text($.number(totalGrossSales, 2)+"đ");
+		$("#textTotalNetSales1").text($.number(totalNetSales, 2)+"đ");
 		
-		$("#textAvgGrossSales1").text("$" + $.number(totalGrossSales / days, 2));
-		$("#textAvgNetSales1").text("$" + $.number(totalNetSales / days, 2));
+		$("#textAvgGrossSales1").text($.number(totalGrossSales / days, 2)+"đ");
+		$("#textAvgNetSales1").text($.number(totalNetSales / days, 2)+"đ");
 		
 		$("#textTotalOrders").text(totalOrders);
 		
@@ -84,10 +84,10 @@ function getDays(period) {
 }
 
 function getChartTitle(period) {
-	if (period == 'last_7_days') return "Sales in Last 7 Days";
-	if (period == 'last_28_days') return "Sales in Last 28 Days";
-	if (period == 'last_6_months') return "Sales in Last 6 Months";
-	if (period == 'last_year') return "Sales in Last Year";
+	if (period == 'last_7_days') return "Doanh số bán hàng trong 7 ngày qua";
+	if (period == 'last_28_days') return "Doanh số bán hàng trong 28 ngày qua";
+	if (period == 'last_6_months') return "Doanh số bán hàng trong 6 tháng qua";
+	if (period == 'last_year') return "Doanh số bán hàng trong năm ngoái";
 	
 	return "";
 }

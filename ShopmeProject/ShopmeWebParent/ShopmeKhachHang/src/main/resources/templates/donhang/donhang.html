@@ -56,10 +56,10 @@
 							<td th:text="${order.tinhTrangDH}">Tình trạng đơn hàng</td>
 							<td>
 								<a class="fas fa-file-alt fa-2x icon-green detail-link" th:href="@{'/khachhang/donhang/detail/' + ${order.maDonHang}}" title="Xem chi tiết của đơn đặt hàng này"></a>
-								<!-- &nbsp;&nbsp;&nbsp;-->
-								<!-- <a class="fas fa-edit fa-2x icon-green" th:href="@{'/khachhang/donhang/edit/' + ${order.maDonHang}}" title="Chỉnh sửa đơn hàng"></a>  -->
 								&nbsp;&nbsp;&nbsp;
+								<th:block th:if="${order.phuongThucThanhToan.toString() == 'COD'}">
 								<a class="fas fa-trash fa-2x icon-dark small-link" th:href="@{/show_delete_modal(type=donhang,keyField=${order.maDonHang},id=${order.maDonHang})}" title="Hủy đơn hàng"></a>
+								</th:block>
 							</td>
 						</tr>
 					</tbody>

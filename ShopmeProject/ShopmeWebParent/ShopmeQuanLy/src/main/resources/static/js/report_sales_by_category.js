@@ -30,30 +30,20 @@ function loadReportSalesByCategory(period) {
 	$.get(url, function(reportJson) {
 
 		$.each(reportJson, function(index, reportItem) {
-			data.addRows([[reportItem.identifier, reportItem.grossSales, reportItem.netSales]]);
-			totalGrossSales += parseFloat(reportItem.grossSales);
-			totalNetSales += parseFloat(reportItem.netSales);
-			totalProducts += parseInt(reportItem.productsCount);
+			data.addRows([[reportItem.dinhDanh, reportItem.tongDoanhThu, reportItem.mangLuoiBanhang]]);
+			totalGrossSales += parseFloat(reportItem.tongDoanhThu);
+			totalNetSales += parseFloat(reportItem.mangLuoiBanhang);
+			totalProducts += parseInt(reportItem.soLuongSanpham);
 		});		
 		
 		var options = {
 				title: getChartTitle(period),
 				'height': 360,
-				legend: {position: 'right'},
-				series: {
-					0: {targetAxisIndex: 0},
-					1: {targetAxisIndex: 0},
-					2: {targetAxisIndex: 1}
-				  },
-				  vAxes: {
-					// Adds titles to each axis.
-					0: {title: 'Sản lượng bán ra', format: 'currency'},
-					1: {title: 'Số lượng đơn đặt hàng'}
-				  }		
+				legend: {position: 'right'}
 		};
 		
 	    var formatter = new google.visualization.NumberFormat({
-	    	prefix: '$'
+	    	prefix: 'đ'
 	    });
 	    formatter.format(data, 1);
 	    formatter.format(data, 2);
@@ -61,11 +51,11 @@ function loadReportSalesByCategory(period) {
 		var salesChart = new google.visualization.PieChart(document.getElementById('chart_sales_by_category'));
 		salesChart.draw(data, options);	
 		
-		$("#textTotalGrossSales2").text("$" + $.number(totalGrossSales, 2));
-		$("#textTotalNetSales2").text("$" + $.number(totalNetSales, 2));
+		$("#textTotalGrossSales2").text($.number(totalGrossSales, 2)+ "đ");
+		$("#textTotalNetSales2").text($.number(totalNetSales, 2)+"đ");
 		
-		$("#textAvgGrossSales2").text("$" + $.number(totalGrossSales / days, 2));
-		$("#textAvgNetSales2").text("$" + $.number(totalNetSales / days, 2));
+		$("#textAvgGrossSales2").text($.number(totalGrossSales / days, 2)+"đ");
+		$("#textAvgNetSales2").text($.number(totalNetSales / days, 2)+"đ");
 		
 		$("#textTotalProducts1").text(totalProducts);	
 		

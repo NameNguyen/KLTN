@@ -16,7 +16,7 @@ public class BaocaoChitietDonhangServices {
 	@Autowired
 	private ChitietDonhangReponsitory repo;
 
-	private String groupBy = "category";
+	private String groupBy;
 	
 	public void setGroupBy(String groupBy) {
 		this.groupBy = groupBy;
@@ -67,6 +67,7 @@ public class BaocaoChitietDonhangServices {
 		if (groupBy.equals("category")) {
 			listOrderDetails = repo.findByChiTietDonHangTenNhanHieuTimeBetween(startTime, endTime);
 		} else if (groupBy.equals("product")) {
+			System.out.println("Sản phẩm");
 			listOrderDetails = repo.findByChiTietDonHangTenSanphamTimeBetween(startTime, endTime);
 		}
 		
@@ -78,6 +79,7 @@ public class BaocaoChitietDonhangServices {
 			if (groupBy.equals("category")) {
 				identifier = aDetail.getSanpham().getNhanhieu().getTen();
 			} else if (groupBy.equals("product")) {
+				
 				identifier = aDetail.getSanpham().getTen();
 			}
 			

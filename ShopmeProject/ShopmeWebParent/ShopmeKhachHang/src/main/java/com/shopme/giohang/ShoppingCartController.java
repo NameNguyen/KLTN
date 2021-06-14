@@ -237,6 +237,7 @@ public class ShoppingCartController {
 		PhuongThucThanhToan paymentMethod = PhuongThucThanhToan.valueOf(paymentType);
 		
 		System.out.println(paymentMethod);
+		
 		DonHang saveDonhang = donHangService.datHang(khachHang, diaChiMacdinh, dsGiohang, 
 				paymentMethod, tongPhi, tongPhi, tongPhiVanchuyen, tongTien, giaVanChuyen.getSoNgay());
 		float doidollar = tongPhi/23046.0f;
