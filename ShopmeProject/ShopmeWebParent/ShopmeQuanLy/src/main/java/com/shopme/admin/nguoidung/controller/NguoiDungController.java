@@ -153,7 +153,6 @@ public class NguoiDungController {
 		String thongbao = "Người dùng có mã tài khoản " + maTK + " đã" + itrangthai;
 		redirectAttributes.addFlashAttribute("message", thongbao);
 		return "redirect:/nguoidung";
-		
 		}
 	
 	@GetMapping("/nguoidung/export/csv")

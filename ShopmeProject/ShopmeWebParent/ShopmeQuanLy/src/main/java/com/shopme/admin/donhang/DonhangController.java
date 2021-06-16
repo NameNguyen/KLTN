@@ -129,7 +129,7 @@ public class DonhangController {
 	public String editOrder(@PathVariable("id") Integer id, Model model, RedirectAttributes ra,
 			HttpServletRequest request) {
 		try {
-			DonHang order = orderService.get(id);;
+			DonHang order = orderService.get(id);
 			
 			model.addAttribute("pageTitle", "Chỉnh sửa Đơn hàng (ID: " + id + ")");
 			model.addAttribute("order", order);

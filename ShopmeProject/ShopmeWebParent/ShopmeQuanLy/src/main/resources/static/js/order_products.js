@@ -1,3 +1,5 @@
+decimalSeparator = decimalPointType == 'COMMA' ? ',' : '.';
+thousandsSeparator = thousandsPointType == 'COMMA' ? ',' : '.'; 
 $(document).ready(function() {
 	formatAmounts();
 	
@@ -210,8 +212,11 @@ function insertProductCode(productId) {
 		
 		productImagePath = contextPath.substring(0, contextPath.length - 1) + productJson.imagePath;
 		productName = productJson.name;
-		productPrice = $.number(productJson.price, 2);
-		productCost = $.number(productJson.cost, 2);
+//		$("#total").text(formatCurrency(total));
+//		productPrice = $.number(productJson.price, 2);
+		productPrice = $.number(formatCurrency(productJson.price));
+//		productCost = $.number(productJson.cost, 2);
+		productCost = $.text(formatCurrency(total));
 		 
 		htmlCode = generateProductCode(productId, productName, productCost, productPrice, productImagePath, nextCount);
 		
@@ -291,7 +296,9 @@ function generateProductCode(productId, productName, productCost, productPrice, 
 	
 	return productCode;
 }
-
+function formatCurrency(amount) {
+	return $.number(amount, decimalDigits, decimalSeparator, thousandsSeparator);
+}
 function processCurrencyFieldsBeforeSubmit() {
 	orderCostField = $("#chiPhi");
 	orderCostField.val(orderCostField.val().replace(",", ""));

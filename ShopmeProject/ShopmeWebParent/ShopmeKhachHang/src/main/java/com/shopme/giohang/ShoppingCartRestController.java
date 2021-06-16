@@ -1,11 +1,14 @@
 package com.shopme.giohang;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.shopme.Tienich;
 import com.shopme.common.entity.KhachHang;
 import com.shopme.khachhang.KhachHangService;
 import com.shopme.security.CustomerUserDetails;
@@ -22,17 +25,15 @@ public class ShoppingCartRestController {
 	@PostMapping("/cart/add/{pid}/{qty}")
 	public String addProductToCart(
 			@PathVariable("pid") Integer maSanpham,
-			@PathVariable("qty") Integer soLuong,
-			@AuthenticationPrincipal CustomerUserDetails userDetail) {
+			@PathVariable("qty") Integer soLuong, HttpServletRequest request) {
 		
+		
+		KhachHang khachHang = getAuthenticatedCustomer(request);
 		System.out.println("addProductToCart " + maSanpham + " - " + soLuong);
 		
-		if(userDetail == null ) {
+		if(khachHang == null ) {
 			return "Bạn cần đăng nhập trước khi thêm hàng vào giỏ";
 		}
-		String userEmail = userDetail.getUsername();
-		KhachHang khachHang = khachHangService.getCustomerByEmail(userEmail);
-		
 		
 		
 		Integer addedQuantity = cartService.addProduct(maSanpham, soLuong, khachHang);
@@ -44,20 +45,16 @@ public class ShoppingCartRestController {
 	@PostMapping("/cart/update/{pid}/{qty}")
 	public String updateToCart(
 			@PathVariable("pid") Integer maSanpham,
-			@PathVariable("qty") Integer soLuong,
-			@AuthenticationPrincipal CustomerUserDetails userDetail) {
+			@PathVariable("qty") Integer soLuong, HttpServletRequest request) {
 		
 		
-		if(userDetail == null ) {
+		KhachHang khachHang = getAuthenticatedCustomer(request);
+		
+		if(khachHang == null ) {
 			return "Bạn cần đăng nhập trước khi chỉnh sửa hàng trong giỏ";
 		}
-		String userEmail = userDetail.getUsername();
-		KhachHang khachHang = khachHangService.getCustomerByEmail(userEmail);
-		
-		
 		
 		float subTotal = cartService.updateSoluong(maSanpham, soLuong, khachHang);
-		
 		
 		return String.valueOf(subTotal);
 	}
@@ -65,14 +62,14 @@ public class ShoppingCartRestController {
 	@PostMapping("/cart/remove/{pid}")
 	public String deleteSanphamToCart(
 			@PathVariable("pid") Integer maSanpham,
-			@AuthenticationPrincipal CustomerUserDetails userDetail) {
+			HttpServletRequest request) {
 		
 		
-		if(userDetail == null ) {
-			return "Bạn cần đăng nhập trước khi xóa hàng vào giỏ";
+		KhachHang khachHang = getAuthenticatedCustomer(request);
+		
+		if(khachHang == null ) {
+			return "Bạn cần đăng nhập trước khi xóa hàng trong giỏ";
 		}
-		String userEmail = userDetail.getUsername();
-		KhachHang khachHang = khachHangService.getCustomerByEmail(userEmail);
 		
 		
 		
@@ -81,4 +78,9 @@ public class ShoppingCartRestController {
 		
 		return "Sản phẩm đã được removed xóa trong giỏ";
 	}
+	
+	private KhachHang getAuthenticatedCustomer(HttpServletRequest request) {
+		String email = Tienich.getEmailOfAuthenticatedCustomer(request);				
+		return khachHangService.getCustomerByEmail(email);
+	}	
 }
