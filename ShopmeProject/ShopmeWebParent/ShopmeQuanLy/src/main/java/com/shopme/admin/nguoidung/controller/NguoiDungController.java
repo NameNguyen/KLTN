@@ -152,7 +152,6 @@ public class NguoiDungController {
 		String itrangthai = trangThai? " kích hoạt" : " tắt kích hoạt";
 		String thongbao = "Người dùng có mã tài khoản " + maTK + " đã" + itrangthai;
 		redirectAttributes.addFlashAttribute("message", thongbao);
-		
 		return "redirect:/nguoidung";
 		
 		}
